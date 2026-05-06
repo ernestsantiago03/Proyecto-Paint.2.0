@@ -5,6 +5,8 @@
 package ingenieria1202610;
 
 import figuras.ControladorCierre;
+import java.awt.Color;
+import javax.swing.JColorChooser;
 
 /**
  *
@@ -23,14 +25,14 @@ private PanelDeDibujo panelDeDibujo;
  public VentanaPrincipal() {
     initComponents();
 
-    PanelDeDibujo panelDeDibujo = new PanelDeDibujo();
+    btnColorSegundoPlano.setBackground(Color.WHITE);
+    panelDeDibujo = new PanelDeDibujo();
     panelDeDibujo.setBackground(java.awt.Color.WHITE); // ← AGREGA ESTA
     panelDeDibujo.setOpaque(true);                     // ← AGREGA ESTA
     getContentPane().add(panelDeDibujo, java.awt.BorderLayout.CENTER);
     btnLapiz.addActionListener(e -> panelDeDibujo.setHerramienta("lapiz")); // 
     btnLinea.addActionListener(e -> panelDeDibujo.setHerramienta("linea"));
     btnBorrador.addActionListener(e -> panelDeDibujo.setHerramienta("borrador"));
-   
  }
 
     /**
@@ -44,6 +46,7 @@ private PanelDeDibujo panelDeDibujo;
 
         btnHerramientas = new javax.swing.ButtonGroup();
         btnColores = new javax.swing.ButtonGroup();
+        buttonGroup1 = new javax.swing.ButtonGroup();
         jPanel7 = new javax.swing.JPanel();
         jPanel8 = new javax.swing.JPanel();
         jPanel9 = new javax.swing.JPanel();
@@ -78,8 +81,8 @@ private PanelDeDibujo panelDeDibujo;
         btnRayo = new javax.swing.JToggleButton();
         btnIndicacion = new javax.swing.JToggleButton();
         btnCorazon = new javax.swing.JToggleButton();
-        btnColorCyan = new javax.swing.JToggleButton();
-        btnColorMorado = new javax.swing.JToggleButton();
+        btnColorPrimerPlano = new javax.swing.JToggleButton();
+        btnColorSegundoPlano = new javax.swing.JToggleButton();
         btnColorRosado = new javax.swing.JToggleButton();
         btnColorBlanco = new javax.swing.JToggleButton();
         btnColorVerde = new javax.swing.JToggleButton();
@@ -250,13 +253,24 @@ private PanelDeDibujo panelDeDibujo;
         btnCorazon.setIcon(new javax.swing.ImageIcon(getClass().getResource("/iconos/icons8-me-gusta-30.png"))); // NOI18N
         jPanel5.add(btnCorazon, new org.netbeans.lib.awtextra.AbsoluteConstraints(660, 40, 40, 30));
 
-        btnColorCyan.setBackground(new java.awt.Color(0, 204, 204));
-        btnColores.add(btnColorCyan);
-        jPanel5.add(btnColorCyan, new org.netbeans.lib.awtextra.AbsoluteConstraints(720, 10, 30, 20));
+        btnColorPrimerPlano.setBackground(new java.awt.Color(0, 0, 0));
+        buttonGroup1.add(btnColorPrimerPlano);
+        btnColorPrimerPlano.setToolTipText("Color De Primer Plano");
+        btnColorPrimerPlano.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnColorPrimerPlanoActionPerformed(evt);
+            }
+        });
+        jPanel5.add(btnColorPrimerPlano, new org.netbeans.lib.awtextra.AbsoluteConstraints(710, 10, 40, 30));
 
-        btnColorMorado.setBackground(new java.awt.Color(102, 0, 204));
-        btnColores.add(btnColorMorado);
-        jPanel5.add(btnColorMorado, new org.netbeans.lib.awtextra.AbsoluteConstraints(720, 50, -1, 20));
+        buttonGroup1.add(btnColorSegundoPlano);
+        btnColorSegundoPlano.setToolTipText("Color De Segundo Plano");
+        btnColorSegundoPlano.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnColorSegundoPlanoActionPerformed(evt);
+            }
+        });
+        jPanel5.add(btnColorSegundoPlano, new org.netbeans.lib.awtextra.AbsoluteConstraints(710, 50, 40, 30));
 
         btnColorRosado.setBackground(new java.awt.Color(255, 0, 255));
         btnColores.add(btnColorRosado);
@@ -300,6 +314,11 @@ private PanelDeDibujo panelDeDibujo;
 
         btnColores.add(btnPaletaDeColores);
         btnPaletaDeColores.setIcon(new javax.swing.ImageIcon(getClass().getResource("/iconos/icons8-paleta-de-colores-48.png"))); // NOI18N
+        btnPaletaDeColores.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnPaletaDeColoresActionPerformed(evt);
+            }
+        });
         jPanel5.add(btnPaletaDeColores, new org.netbeans.lib.awtextra.AbsoluteConstraints(970, 13, 60, 60));
 
         getContentPane().add(jPanel5, java.awt.BorderLayout.PAGE_START);
@@ -416,6 +435,31 @@ private PanelDeDibujo panelDeDibujo;
         // TODO add your handling code here:
     }//GEN-LAST:event_btnLineaActionPerformed
 
+    private void btnPaletaDeColoresActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPaletaDeColoresActionPerformed
+        Color color = JColorChooser.showDialog(this, "Seleccionar color", Color.black, false);
+        
+        if (color == null){
+            return;
+        }
+        
+        System.out.println(color);
+        if (btnColorPrimerPlano.isSelected( )){
+            btnColorPrimerPlano.setBackground(color);
+            panelDeDibujo.setColorDePrimerPlano(btnColorPrimerPlano.getBackground());
+        }
+        else {
+            btnColorSegundoPlano.setBackground(color);
+        }
+    }//GEN-LAST:event_btnPaletaDeColoresActionPerformed
+
+    private void btnColorPrimerPlanoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnColorPrimerPlanoActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btnColorPrimerPlanoActionPerformed
+
+    private void btnColorSegundoPlanoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnColorSegundoPlanoActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btnColorSegundoPlanoActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -451,12 +495,12 @@ private PanelDeDibujo panelDeDibujo;
     private javax.swing.JToggleButton btnColorAmarillo;
     private javax.swing.JToggleButton btnColorAzul;
     private javax.swing.JToggleButton btnColorBlanco;
-    private javax.swing.JToggleButton btnColorCyan;
     private javax.swing.JToggleButton btnColorGris;
-    private javax.swing.JToggleButton btnColorMorado;
     private javax.swing.JToggleButton btnColorNaranja;
+    private javax.swing.JToggleButton btnColorPrimerPlano;
     private javax.swing.JToggleButton btnColorRojo;
     private javax.swing.JToggleButton btnColorRosado;
+    private javax.swing.JToggleButton btnColorSegundoPlano;
     private javax.swing.JToggleButton btnColorVerde;
     private javax.swing.JToggleButton btnColorVioleta;
     private javax.swing.ButtonGroup btnColores;
@@ -489,6 +533,7 @@ private PanelDeDibujo panelDeDibujo;
     private javax.swing.JMenuItem btnSalir;
     private javax.swing.JToggleButton btnSubsionadorColores;
     private javax.swing.JToggleButton btnTriangulo;
+    private javax.swing.ButtonGroup buttonGroup1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
