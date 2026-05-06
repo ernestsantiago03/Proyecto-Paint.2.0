@@ -23,11 +23,14 @@ private PanelDeDibujo panelDeDibujo;
  public VentanaPrincipal() {
     initComponents();
 
-    panelDeDibujo = new PanelDeDibujo();
-    panelDeDibujo.setBackground(java.awt.Color.WHITE);
-    panelDeDibujo.setOpaque(true);
-
+    PanelDeDibujo panelDeDibujo = new PanelDeDibujo();
+    panelDeDibujo.setBackground(java.awt.Color.WHITE); // ← AGREGA ESTA
+    panelDeDibujo.setOpaque(true);                     // ← AGREGA ESTA
     getContentPane().add(panelDeDibujo, java.awt.BorderLayout.CENTER);
+    btnLapiz.addActionListener(e -> panelDeDibujo.setHerramienta("lapiz")); // 
+    btnLinea.addActionListener(e -> panelDeDibujo.setHerramienta("linea"));
+    btnBorrador.addActionListener(e -> panelDeDibujo.setHerramienta("borrador"));
+   
  }
 
     /**
