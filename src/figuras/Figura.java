@@ -13,11 +13,16 @@ import java.awt.Point;
  */
 
 public abstract class Figura {
-    protected Color color = Color.BLACK;
+    protected Color colorBorde = Color.BLACK;
+    protected Color colorRelleno = null;
     protected int grosor = 2;
 
-    public void setColor(Color color) {
-        this.color = color;
+    public void setColorBorde(Color colorBorde) {
+        this.colorBorde = colorBorde;
+    }
+
+    public void setColorRelleno(Color colorRelleno) {
+        this.colorRelleno = colorRelleno;
     }
 
     public void setGrosor(int grosor) {
@@ -25,5 +30,6 @@ public abstract class Figura {
     }
 
     public abstract void dibujar(Graphics g);
+    
     public abstract void actualizar(Point puntoActual);
 }

@@ -43,7 +43,7 @@ public class BoteDePintura extends Figura{
                 || y >= imagen.getHeight()) return;
 
         int colorObjetivo = imagen.getRGB(x, y);
-        int colorNuevo = color.getRGB();
+        int colorNuevo = colorBorde.getRGB();
 
         if (colorObjetivo == colorNuevo) return;
 

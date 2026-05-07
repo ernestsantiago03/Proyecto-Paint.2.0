@@ -13,27 +13,27 @@ import javax.swing.JColorChooser;
  * @author Santiago
  */
 public class VentanaPrincipal extends javax.swing.JFrame {
-    
+
     private static final java.util.logging.Logger logger = java.util.logging.Logger.getLogger(VentanaPrincipal.class.getName());
-    
+
     /**
      * Creates new form VentanaPrincipal
      */
+    private PanelDeDibujo panelDeDibujo;
 
-private PanelDeDibujo panelDeDibujo;
+    public VentanaPrincipal() {
+        initComponents();
 
- public VentanaPrincipal() {
-    initComponents();
-
-    btnColorSegundoPlano.setBackground(Color.WHITE);
-    panelDeDibujo = new PanelDeDibujo();
-    panelDeDibujo.setBackground(java.awt.Color.WHITE); // ← AGREGA ESTA
-    panelDeDibujo.setOpaque(true);                     // ← AGREGA ESTA
-    getContentPane().add(panelDeDibujo, java.awt.BorderLayout.CENTER);
-    btnLapiz.addActionListener(e -> panelDeDibujo.setHerramienta("lapiz")); // 
-    btnLinea.addActionListener(e -> panelDeDibujo.setHerramienta("linea"));
-    btnBorrador.addActionListener(e -> panelDeDibujo.setHerramienta("borrador"));
- }
+        btnColorSegundoPlano.setBackground(Color.WHITE);
+        panelDeDibujo = new PanelDeDibujo();
+        panelDeDibujo.setBackground(java.awt.Color.WHITE); // ← AGREGA ESTA
+        panelDeDibujo.setOpaque(true);                     // ← AGREGA ESTA
+        getContentPane().add(panelDeDibujo, java.awt.BorderLayout.CENTER);
+        btnLapiz.addActionListener(e -> panelDeDibujo.setHerramienta("lapiz")); // 
+        btnLinea.addActionListener(e -> panelDeDibujo.setHerramienta("linea"));
+        btnBorrador.addActionListener(e -> panelDeDibujo.setHerramienta("borrador"));
+        btnCuadrado.addActionListener(e -> panelDeDibujo.setHerramienta("rectangulo"));
+    }
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -399,7 +399,7 @@ private PanelDeDibujo panelDeDibujo;
     }//GEN-LAST:event_formWindowClosing
 
     private void btnGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGuardarActionPerformed
-       
+
     }//GEN-LAST:event_btnGuardarActionPerformed
 
     private void btnNuevoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnNuevoActionPerformed
@@ -411,12 +411,12 @@ private PanelDeDibujo panelDeDibujo;
     }//GEN-LAST:event_btnImprimirActionPerformed
 
     private void btnAcercaDeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAcercaDeActionPerformed
-        javax.swing.JOptionPane.showMessageDialog(this, 
-        "<html><b>Somos los estudiantes de Ingeniería 1</b><br>\n" +
-        "Version 1.0<br>" +
-        "Proyecto Paint \n" ,
-        "Acerca de", 
-        javax.swing.JOptionPane.INFORMATION_MESSAGE);
+        javax.swing.JOptionPane.showMessageDialog(this,
+                "<html><b>Somos los estudiantes de Ingeniería 1</b><br>\n"
+                + "Version 1.0<br>"
+                + "Proyecto Paint \n",
+                "Acerca de",
+                javax.swing.JOptionPane.INFORMATION_MESSAGE);
     }//GEN-LAST:event_btnAcercaDeActionPerformed
 
     private void btnSalirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSalirActionPerformed
@@ -437,18 +437,21 @@ private PanelDeDibujo panelDeDibujo;
 
     private void btnPaletaDeColoresActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPaletaDeColoresActionPerformed
         Color color = JColorChooser.showDialog(this, "Seleccionar color", Color.black, false);
-        
-        if (color == null){
+
+        if (color == null) {
             return;
         }
         
         System.out.println(color);
-        if (btnColorPrimerPlano.isSelected( )){
+        if (btnColorPrimerPlano.isSelected()) {
             btnColorPrimerPlano.setBackground(color);
             panelDeDibujo.setColorDePrimerPlano(btnColorPrimerPlano.getBackground());
-        }
-        else {
+        } else {
             btnColorSegundoPlano.setBackground(color);
+            panelDeDibujo.setColorDeSegundoPlano(
+                    btnColorSegundoPlano.getBackground()
+            );
+
         }
     }//GEN-LAST:event_btnPaletaDeColoresActionPerformed
 
