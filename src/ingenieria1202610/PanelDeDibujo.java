@@ -18,9 +18,9 @@ import java.util.ArrayList;
 import javax.swing.JPanel;
 /**
  *
- * @author Osvaldo
+ * @author Santiago
  */
-
+/* */
 public class PanelDeDibujo extends JPanel {
 
     // lista de todas las figuras dibujadas
@@ -29,16 +29,17 @@ public class PanelDeDibujo extends JPanel {
     private BufferedImage imagen;
     //  campos para el lápiz
     private Figura figuraActual;
-    private Color colorActual = Color.BLACK;
-    private String herramienta = "Ninguna";
-    private int grosorActual = 2;
+    private Color colorActual = Color.BLACK; /* color por defecto negro*/
+    private String herramienta = "Ninguna";/* Controla qué herramienta está activa. Empieza en "Ninguna" para que no dibuje hasta que el usuario elija una herramienta.*/
+    private int grosorActual = 2; /*El grosor del trazo. Por defecto 2 píxeles*/
 
+           /* El constructor, Pone el fondo del panel en blanco — el color del canvas*/
     public PanelDeDibujo() {
         setBackground(Color.WHITE);
 
-        //  cuando el usuario hace clic
+        //  Se ejecuta una sola vez cuando el usuario hace clic
        addMouseListener(new MouseAdapter() {
-    
+       //herramienta es lápiz — crea un DibujoLibre nuevo y lo agrega a la lista
     public void mousePressed(MouseEvent e) {
         switch (herramienta) {
             case "lapiz":
@@ -47,14 +48,14 @@ public class PanelDeDibujo extends JPanel {
                 figuraActual.setGrosor(grosorActual);
                 figuras.add(figuraActual);
                 break;
-                
+        // herramienta es línea — crea una Linea con el punto donde hizo clic como punto inicial.    
             case "linea":                              
                 figuraActual = new Linea(e.getPoint());
                 figuraActual.setColor(colorActual);
                 figuraActual.setGrosor(grosorActual);
                 figuras.add(figuraActual);
                 break;
-        
+        //herramienta es borrador — crea un Borrador nuevo. No necesita color ni grosor porque siempre pinta blanco con grosor 20.
             case "borrador":
                 figuraActual = new Borrador();
                 figuras.add(figuraActual);
@@ -99,12 +100,14 @@ public class PanelDeDibujo extends JPanel {
     
     protected void paintComponent(Graphics g) {
         super.paintComponent(g);
+        
         if (imagen == null || imagen.getWidth() != getWidth()
                 || imagen.getHeight() != getHeight()) {
             BufferedImage nueva = new BufferedImage(
                     Math.max(1, getWidth()),
                     Math.max(1, getHeight()),
                     BufferedImage.TYPE_INT_ARGB);
+            
             Graphics2D ng = nueva.createGraphics();
             ng.setColor(Color.WHITE);
             ng.fillRect(0, 0, nueva.getWidth(), nueva.getHeight());
