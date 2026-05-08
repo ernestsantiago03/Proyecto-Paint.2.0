@@ -81,6 +81,12 @@ public class PanelDeDibujo extends JPanel {
                             // guardar el estado actual de la imagen en la lista
                             figuras.add(balde);
                         }
+                    case "pincel": // <-- NUEVO CASO
+                        figuraActual = new figuras.Pincel();
+                        figuraActual.setColorBorde(colorDePrimerPlano);
+                        figuraActual.setGrosor(grosorActual);
+                        figuras.add(figuraActual);
+                        break;
                     default:
                         // ninguna herramienta activa
                         break;

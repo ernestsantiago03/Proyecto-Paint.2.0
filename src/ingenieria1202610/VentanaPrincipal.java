@@ -23,9 +23,6 @@ public class VentanaPrincipal extends javax.swing.JFrame {
 
     public VentanaPrincipal() {
         initComponents();
-
-    
-
  
         btnColorSegundoPlano.setBackground(Color.WHITE);
         btnColorPrimerPlano.setSelected(true);
@@ -38,6 +35,7 @@ public class VentanaPrincipal extends javax.swing.JFrame {
         btnBorrador.addActionListener(e -> panelDeDibujo.setHerramienta("borrador"));
         btnCuadrado.addActionListener(e -> panelDeDibujo.setHerramienta("rectangulo"));
         btnBotePintura.addActionListener(e -> panelDeDibujo.setHerramienta("balde"));
+        btnPincel.addActionListener(e -> panelDeDibujo.setHerramienta("pincel"));
         
     }
 
@@ -100,6 +98,7 @@ public class VentanaPrincipal extends javax.swing.JFrame {
         btnNegro = new javax.swing.JToggleButton();
         btnColorRojo = new javax.swing.JToggleButton();
         btnPaletaDeColores = new javax.swing.JToggleButton();
+        sliderGrosor = new javax.swing.JSlider();
         jPanel1 = new javax.swing.JPanel();
         barraDeMenu = new javax.swing.JMenuBar();
         menuArchivo = new javax.swing.JMenu();
@@ -151,7 +150,7 @@ public class VentanaPrincipal extends javax.swing.JFrame {
         jPanel5.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(260, 70, 80, 20));
 
         jLabel2.setText("Formas ");
-        jPanel5.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(560, 70, -1, -1));
+        jPanel5.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(560, 70, -1, 20));
 
         jLabel7.setText("Colores ");
         jPanel5.add(jLabel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(800, 70, -1, 20));
@@ -337,6 +336,16 @@ public class VentanaPrincipal extends javax.swing.JFrame {
         });
         jPanel5.add(btnPaletaDeColores, new org.netbeans.lib.awtextra.AbsoluteConstraints(970, 13, 60, 60));
 
+        sliderGrosor.setMaximum(50);
+        sliderGrosor.setMinimum(1);
+        sliderGrosor.setValue(3);
+        sliderGrosor.addChangeListener(new javax.swing.event.ChangeListener() {
+            public void stateChanged(javax.swing.event.ChangeEvent evt) {
+                sliderGrosorStateChanged(evt);
+            }
+        });
+        jPanel5.add(sliderGrosor, new org.netbeans.lib.awtextra.AbsoluteConstraints(380, 90, 70, -1));
+
         getContentPane().add(jPanel5, java.awt.BorderLayout.PAGE_START);
         getContentPane().add(jPanel1, java.awt.BorderLayout.LINE_START);
 
@@ -499,6 +508,10 @@ public class VentanaPrincipal extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_btnBotePinturaActionPerformed
 
+    private void sliderGrosorStateChanged(javax.swing.event.ChangeEvent evt) {//GEN-FIRST:event_sliderGrosorStateChanged
+        panelDeDibujo.setGrosor(sliderGrosor.getValue());
+    }//GEN-LAST:event_sliderGrosorStateChanged
+
     /**
      * @param args the command line arguments
      */
@@ -589,5 +602,6 @@ public class VentanaPrincipal extends javax.swing.JFrame {
     private javax.swing.JMenu menuArchivo;
     private javax.swing.JMenu menuAyuda;
     private javax.swing.JMenu menuEdicion;
+    private javax.swing.JSlider sliderGrosor;
     // End of variables declaration//GEN-END:variables
 }
