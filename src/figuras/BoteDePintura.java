@@ -15,7 +15,7 @@ import java.util.Queue;
  * @author Santiago
  */
 public class BoteDePintura extends Figura{
-    
+   
     private Point punto;
     private BufferedImage imagen;
 
