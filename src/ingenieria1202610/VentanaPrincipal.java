@@ -24,7 +24,11 @@ public class VentanaPrincipal extends javax.swing.JFrame {
     public VentanaPrincipal() {
         initComponents();
 
+    
+
+ 
         btnColorSegundoPlano.setBackground(Color.WHITE);
+        btnColorPrimerPlano.setSelected(true);
         panelDeDibujo = new PanelDeDibujo();
         panelDeDibujo.setBackground(java.awt.Color.WHITE); // ← AGREGA ESTA
         panelDeDibujo.setOpaque(true);                     // ← AGREGA ESTA
@@ -33,6 +37,8 @@ public class VentanaPrincipal extends javax.swing.JFrame {
         btnLinea.addActionListener(e -> panelDeDibujo.setHerramienta("linea"));
         btnBorrador.addActionListener(e -> panelDeDibujo.setHerramienta("borrador"));
         btnCuadrado.addActionListener(e -> panelDeDibujo.setHerramienta("rectangulo"));
+        btnBotePintura.addActionListener(e -> panelDeDibujo.setHerramienta("balde"));
+        
     }
 
     /**
@@ -168,6 +174,11 @@ public class VentanaPrincipal extends javax.swing.JFrame {
 
         btnHerramientas.add(btnBotePintura);
         btnBotePintura.setIcon(new javax.swing.ImageIcon(getClass().getResource("/iconos/icons8-bote-de-pintura-24.png"))); // NOI18N
+        btnBotePintura.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnBotePinturaActionPerformed(evt);
+            }
+        });
         jPanel5.add(btnBotePintura, new org.netbeans.lib.awtextra.AbsoluteConstraints(220, 40, 50, -1));
 
         btnHerramientas.add(btnLapiz);
@@ -206,6 +217,11 @@ public class VentanaPrincipal extends javax.swing.JFrame {
 
         btnHerramientas.add(btnCuadrado);
         btnCuadrado.setIcon(new javax.swing.ImageIcon(getClass().getResource("/iconos/icons8-cuadrado-24.png"))); // NOI18N
+        btnCuadrado.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnCuadradoActionPerformed(evt);
+            }
+        });
         jPanel5.add(btnCuadrado, new org.netbeans.lib.awtextra.AbsoluteConstraints(460, 40, 40, -1));
 
         btnHerramientas.add(btnCruz);
@@ -456,12 +472,32 @@ public class VentanaPrincipal extends javax.swing.JFrame {
     }//GEN-LAST:event_btnPaletaDeColoresActionPerformed
 
     private void btnColorPrimerPlanoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnColorPrimerPlanoActionPerformed
-        // TODO add your handling code here:
+         Color colorTemp = btnColorPrimerPlano.getBackground();
+    btnColorPrimerPlano.setBackground(btnColorSegundoPlano.getBackground());
+    btnColorSegundoPlano.setBackground(colorTemp);
+
+    panelDeDibujo.setColorDePrimerPlano(btnColorPrimerPlano.getBackground());
+    panelDeDibujo.setColorDeSegundoPlano(btnColorSegundoPlano.getBackground());
+    
     }//GEN-LAST:event_btnColorPrimerPlanoActionPerformed
 
     private void btnColorSegundoPlanoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnColorSegundoPlanoActionPerformed
-        // TODO add your handling code here:
+       Color colorTemp = btnColorPrimerPlano.getBackground();
+    btnColorPrimerPlano.setBackground(btnColorSegundoPlano.getBackground());
+    btnColorSegundoPlano.setBackground(colorTemp);
+
+    panelDeDibujo.setColorDePrimerPlano(btnColorPrimerPlano.getBackground());
+    panelDeDibujo.setColorDeSegundoPlano(btnColorSegundoPlano.getBackground());
+    
     }//GEN-LAST:event_btnColorSegundoPlanoActionPerformed
+
+    private void btnCuadradoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCuadradoActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btnCuadradoActionPerformed
+
+    private void btnBotePinturaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBotePinturaActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btnBotePinturaActionPerformed
 
     /**
      * @param args the command line arguments
