@@ -13,27 +13,33 @@ import javax.swing.JColorChooser;
  * @author Santiago
  */
 public class VentanaPrincipal extends javax.swing.JFrame {
-    
+
     private static final java.util.logging.Logger logger = java.util.logging.Logger.getLogger(VentanaPrincipal.class.getName());
-    
+
     /**
      * Creates new form VentanaPrincipal
      */
+    private PanelDeDibujo panelDeDibujo;
 
-private PanelDeDibujo panelDeDibujo;
+    public VentanaPrincipal() {
+        initComponents();
 
- public VentanaPrincipal() {
-    initComponents();
+    
 
-    btnColorSegundoPlano.setBackground(Color.WHITE);
-    panelDeDibujo = new PanelDeDibujo();
-    panelDeDibujo.setBackground(java.awt.Color.WHITE); // ← AGREGA ESTA
-    panelDeDibujo.setOpaque(true);                     // ← AGREGA ESTA
-    getContentPane().add(panelDeDibujo, java.awt.BorderLayout.CENTER);
-    btnLapiz.addActionListener(e -> panelDeDibujo.setHerramienta("lapiz")); // 
-    btnLinea.addActionListener(e -> panelDeDibujo.setHerramienta("linea"));
-    btnBorrador.addActionListener(e -> panelDeDibujo.setHerramienta("borrador"));
- }
+ 
+        btnColorSegundoPlano.setBackground(Color.WHITE);
+        btnColorPrimerPlano.setSelected(true);
+        panelDeDibujo = new PanelDeDibujo();
+        panelDeDibujo.setBackground(java.awt.Color.WHITE); // ← AGREGA ESTA
+        panelDeDibujo.setOpaque(true);                     // ← AGREGA ESTA
+        getContentPane().add(panelDeDibujo, java.awt.BorderLayout.CENTER);
+        btnLapiz.addActionListener(e -> panelDeDibujo.setHerramienta("lapiz")); // 
+        btnLinea.addActionListener(e -> panelDeDibujo.setHerramienta("linea"));
+        btnBorrador.addActionListener(e -> panelDeDibujo.setHerramienta("borrador"));
+        btnCuadrado.addActionListener(e -> panelDeDibujo.setHerramienta("rectangulo"));
+        btnBotePintura.addActionListener(e -> panelDeDibujo.setHerramienta("balde"));
+        
+    }
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -168,6 +174,11 @@ private PanelDeDibujo panelDeDibujo;
 
         btnHerramientas.add(btnBotePintura);
         btnBotePintura.setIcon(new javax.swing.ImageIcon(getClass().getResource("/iconos/icons8-bote-de-pintura-24.png"))); // NOI18N
+        btnBotePintura.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnBotePinturaActionPerformed(evt);
+            }
+        });
         jPanel5.add(btnBotePintura, new org.netbeans.lib.awtextra.AbsoluteConstraints(220, 40, 50, -1));
 
         btnHerramientas.add(btnLapiz);
@@ -206,6 +217,11 @@ private PanelDeDibujo panelDeDibujo;
 
         btnHerramientas.add(btnCuadrado);
         btnCuadrado.setIcon(new javax.swing.ImageIcon(getClass().getResource("/iconos/icons8-cuadrado-24.png"))); // NOI18N
+        btnCuadrado.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnCuadradoActionPerformed(evt);
+            }
+        });
         jPanel5.add(btnCuadrado, new org.netbeans.lib.awtextra.AbsoluteConstraints(460, 40, 40, -1));
 
         btnHerramientas.add(btnCruz);
@@ -399,7 +415,7 @@ private PanelDeDibujo panelDeDibujo;
     }//GEN-LAST:event_formWindowClosing
 
     private void btnGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGuardarActionPerformed
-       
+
     }//GEN-LAST:event_btnGuardarActionPerformed
 
     private void btnNuevoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnNuevoActionPerformed
@@ -411,12 +427,12 @@ private PanelDeDibujo panelDeDibujo;
     }//GEN-LAST:event_btnImprimirActionPerformed
 
     private void btnAcercaDeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAcercaDeActionPerformed
-        javax.swing.JOptionPane.showMessageDialog(this, 
-        "<html><b>Somos los estudiantes de Ingeniería 1</b><br>\n" +
-        "Version 1.0<br>" +
-        "Proyecto Paint \n" ,
-        "Acerca de", 
-        javax.swing.JOptionPane.INFORMATION_MESSAGE);
+        javax.swing.JOptionPane.showMessageDialog(this,
+                "<html><b>Somos los estudiantes de Ingeniería 1</b><br>\n"
+                + "Version 1.0<br>"
+                + "Proyecto Paint \n",
+                "Acerca de",
+                javax.swing.JOptionPane.INFORMATION_MESSAGE);
     }//GEN-LAST:event_btnAcercaDeActionPerformed
 
     private void btnSalirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSalirActionPerformed
@@ -437,28 +453,51 @@ private PanelDeDibujo panelDeDibujo;
 
     private void btnPaletaDeColoresActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPaletaDeColoresActionPerformed
         Color color = JColorChooser.showDialog(this, "Seleccionar color", Color.black, false);
-        
-        if (color == null){
+
+        if (color == null) {
             return;
         }
         
         System.out.println(color);
-        if (btnColorPrimerPlano.isSelected( )){
+        if (btnColorPrimerPlano.isSelected()) {
             btnColorPrimerPlano.setBackground(color);
             panelDeDibujo.setColorDePrimerPlano(btnColorPrimerPlano.getBackground());
-        }
-        else {
+        } else {
             btnColorSegundoPlano.setBackground(color);
+            panelDeDibujo.setColorDeSegundoPlano(
+                    btnColorSegundoPlano.getBackground()
+            );
+
         }
     }//GEN-LAST:event_btnPaletaDeColoresActionPerformed
 
     private void btnColorPrimerPlanoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnColorPrimerPlanoActionPerformed
-        // TODO add your handling code here:
+         Color colorTemp = btnColorPrimerPlano.getBackground();
+    btnColorPrimerPlano.setBackground(btnColorSegundoPlano.getBackground());
+    btnColorSegundoPlano.setBackground(colorTemp);
+
+    panelDeDibujo.setColorDePrimerPlano(btnColorPrimerPlano.getBackground());
+    panelDeDibujo.setColorDeSegundoPlano(btnColorSegundoPlano.getBackground());
+    
     }//GEN-LAST:event_btnColorPrimerPlanoActionPerformed
 
     private void btnColorSegundoPlanoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnColorSegundoPlanoActionPerformed
-        // TODO add your handling code here:
+       Color colorTemp = btnColorPrimerPlano.getBackground();
+    btnColorPrimerPlano.setBackground(btnColorSegundoPlano.getBackground());
+    btnColorSegundoPlano.setBackground(colorTemp);
+
+    panelDeDibujo.setColorDePrimerPlano(btnColorPrimerPlano.getBackground());
+    panelDeDibujo.setColorDeSegundoPlano(btnColorSegundoPlano.getBackground());
+    
     }//GEN-LAST:event_btnColorSegundoPlanoActionPerformed
+
+    private void btnCuadradoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCuadradoActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btnCuadradoActionPerformed
+
+    private void btnBotePinturaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBotePinturaActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btnBotePinturaActionPerformed
 
     /**
      * @param args the command line arguments

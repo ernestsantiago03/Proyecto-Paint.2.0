@@ -23,7 +23,7 @@ public class DibujoLibre extends Figura {
         Graphics2D g2 = (Graphics2D) g;
         g2.setRenderingHint(RenderingHints.KEY_ANTIALIASING,
                             RenderingHints.VALUE_ANTIALIAS_ON);
-        g2.setColor(color);
+        g2.setColor(colorBorde);
         g2.setStroke(new BasicStroke(grosor,
                      BasicStroke.CAP_ROUND,
                      BasicStroke.JOIN_ROUND));

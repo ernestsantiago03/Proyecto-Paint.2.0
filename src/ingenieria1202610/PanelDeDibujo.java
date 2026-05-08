@@ -12,6 +12,7 @@ import java.awt.Graphics2D;
 import figuras.Borrador;
 import figuras.BoteDePintura;
 import figuras.Linea;
+import figuras.Rectangulo;
 import java.awt.Point;
 import java.awt.RenderingHints;
 import java.awt.event.MouseAdapter;
@@ -24,7 +25,6 @@ import javax.swing.JPanel;
  *
  * @author Osvaldo
  */
-
 public class PanelDeDibujo extends JPanel {
 
     // lista de todas las figuras dibujadas
@@ -34,8 +34,9 @@ public class PanelDeDibujo extends JPanel {
     // ← NUEVO: campos para el lápiz
     private Figura figuraActual;
     private Color colorDePrimerPlano = Color.BLACK;
+    private Color colorDeSegundoPlano = null;
     private String herramienta = "Ninguna";
-    private int grosorActual = 2;
+    private int grosorActual = 4;
 
     public PanelDeDibujo() {
         setBackground(Color.WHITE);
@@ -48,14 +49,14 @@ public class PanelDeDibujo extends JPanel {
                 switch (herramienta) {
                     case "lapiz":
                         figuraActual = new DibujoLibre();
-                        figuraActual.setColor(colorDePrimerPlano);
+                        figuraActual.setColorBorde(colorDePrimerPlano);
                         figuraActual.setGrosor(grosorActual);
                         figuras.add(figuraActual);
                         break;
 
                     case "linea":
                         figuraActual = new Linea(e.getPoint());
-                        figuraActual.setColor(colorDePrimerPlano);
+                        figuraActual.setColorBorde(colorDePrimerPlano);
                         figuraActual.setGrosor(grosorActual);
                         figuras.add(figuraActual);
                         break;
@@ -65,11 +66,23 @@ public class PanelDeDibujo extends JPanel {
                         figuras.add(figuraActual);
                         break;
 
+                    case "rectangulo":
+
+                        figuraActual = new Rectangulo(e.getPoint());
+
+                        figuraActual.setColorBorde(colorDePrimerPlano);
+
+                        figuraActual.setColorRelleno(colorDeSegundoPlano);
+
+                        figuras.add(figuraActual);
+
+                        break;
+
                     case "balde":
                         // verificar que la imagen ya existe
                         if (imagen != null) {
                             BoteDePintura balde = new BoteDePintura(puntoInicial, imagen);
-                            balde.setColor(colorDePrimerPlano);
+                            balde.setColorBorde(colorDePrimerPlano);
                             balde.rellenar();
                             // guardar el estado actual de la imagen en la lista
                             figuras.add(balde);
@@ -97,6 +110,10 @@ public class PanelDeDibujo extends JPanel {
     // métodos públicos para los botones
     public void setColorDePrimerPlano(Color color) {
         this.colorDePrimerPlano = color;
+    }
+
+    public void setColorDeSegundoPlano(Color color) {
+        this.colorDeSegundoPlano = color;
     }
 
     public void setHerramienta(String herramienta) {
