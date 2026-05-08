@@ -6,65 +6,51 @@ package figuras;
 
 import java.awt.Graphics;
 import java.awt.Point;
-import java.awt.image.BufferedImage;
-import java.util.LinkedList;
-import java.util.Queue;
 
 /**
  *
  * @author Santiago
  */
 public class BoteDePintura extends Figura{
-    
-    private Point punto;
-    private BufferedImage imagen;
+    protected Point inicio;
+    protected Point fin;
 
-    public BoteDePintura(Point punto, BufferedImage imagen) {
-        this.punto = punto;
-        this.imagen = imagen;
-    }
-
-    @Override
-    public void dibujar(Graphics g) {
-        // cada vez que se redibuja, vuelve a aplicar el relleno
-        rellenar();
+    public BoteDePintura (Point inicio) {
+        this.inicio = inicio;
+        this.fin = inicio;
     }
 
     @Override
     public void actualizar(Point puntoActual) {
-        // el balde no necesita actualizar
+        this.fin = puntoActual;
     }
 
-    public void rellenar() {
-        int x = punto.x;
-        int y = punto.y;
+    // Método para pintar relleno
+    protected void pintarRelleno(Graphics g, int x, int y, int ancho, int alto) {
 
-        if (x < 0 || y < 0 || x >= imagen.getWidth() 
-                || y >= imagen.getHeight()) return;
-
-        int colorObjetivo = imagen.getRGB(x, y);
-        int colorNuevo = colorBorde.getRGB();
-
-        if (colorObjetivo == colorNuevo) return;
-
-        Queue<Point> cola = new LinkedList<>();
-        cola.add(new Point(x, y));
-
-        while (!cola.isEmpty()) {
-            Point p = cola.poll();
-            int px = p.x;
-            int py = p.y;
-
-            if (px < 0 || py < 0 || px >= imagen.getWidth() 
-                    || py >= imagen.getHeight()) continue;
-            if (imagen.getRGB(px, py) != colorObjetivo) continue;
-
-            imagen.setRGB(px, py, colorNuevo);
-
-            cola.add(new Point(px + 1, py));
-            cola.add(new Point(px - 1, py));
-            cola.add(new Point(px, py + 1));
-            cola.add(new Point(px, py - 1));
+        if (colorRelleno != null) {
+            g.setColor(colorRelleno);
+            g.fillRect(x, y, ancho, alto);
         }
+    }
+
+    // Método para pintar borde
+    protected void pintarBorde(Graphics g, int x, int y, int ancho, int alto) {
+
+        g.setColor(colorBorde);
+
+        for (int i = 0; i < grosor; i++) {
+            g.drawRect(
+                    x - i,
+                    y - i,
+                    ancho + (i * 2),
+                    alto + (i * 2)
+            );
+        }
+    }
+
+    @Override
+    public void dibujar(Graphics g) {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     }
 }
