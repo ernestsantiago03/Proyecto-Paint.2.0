@@ -4,16 +4,27 @@
  */
 package ingenieria1202610;
 
+import figuras.DibujoLibre;
 import figuras.Figura;
 import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
+import figuras.Borrador;
+import figuras.BoteDePintura;
+import figuras.Linea;
+import figuras.Rectangulo;
+import java.awt.Point;
 import java.awt.RenderingHints;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 import java.awt.image.BufferedImage;
 import java.util.ArrayList;
 import javax.swing.JPanel;
 
-
+/**
+ *
+ * @author Osvaldo
+ */
 public class PanelDeDibujo extends JPanel {
 
     // lista de todas las figuras dibujadas
@@ -22,14 +33,87 @@ public class PanelDeDibujo extends JPanel {
     private BufferedImage imagen;
     // ← NUEVO: campos para el lápiz
     private Figura figuraActual;
-    private Color colorActual = Color.BLACK;
+    private Color colorDePrimerPlano = Color.BLACK;
+    private Color colorDeSegundoPlano = null;
     private String herramienta = "Ninguna";
-    private int grosorActual = 2;
+    private int grosorActual = 4;
 
+    public PanelDeDibujo() {
+        setBackground(Color.WHITE);
 
-    // ← NUEVO: métodos públicos para los botones
-    public void setColorActual(Color color) {
-        this.colorActual = color;
+        //  cuando el usuario hace clic
+        addMouseListener(new MouseAdapter() {
+            @Override
+            public void mousePressed(MouseEvent e) {
+                Point puntoInicial = e.getPoint();
+                switch (herramienta) {
+                    case "lapiz":
+                        figuraActual = new DibujoLibre();
+                        figuraActual.setColorBorde(colorDePrimerPlano);
+                        figuraActual.setGrosor(grosorActual);
+                        figuras.add(figuraActual);
+                        break;
+
+                    case "linea":
+                        figuraActual = new Linea(e.getPoint());
+                        figuraActual.setColorBorde(colorDePrimerPlano);
+                        figuraActual.setGrosor(grosorActual);
+                        figuras.add(figuraActual);
+                        break;
+
+                    case "borrador":
+                        figuraActual = new Borrador();
+                        figuras.add(figuraActual);
+                        break;
+
+                    case "rectangulo":
+
+                        figuraActual = new Rectangulo(e.getPoint());
+
+                        figuraActual.setColorBorde(colorDePrimerPlano);
+
+                        figuraActual.setColorRelleno(colorDeSegundoPlano);
+
+                        figuras.add(figuraActual);
+
+                        break;
+
+                    case "balde":
+                        // verificar que la imagen ya existe
+                        if (imagen != null) {
+                            BoteDePintura balde = new BoteDePintura(puntoInicial, imagen);
+                            balde.setColorBorde(colorDePrimerPlano);
+                            balde.rellenar();
+                            // guardar el estado actual de la imagen en la lista
+                            figuras.add(balde);
+                        }
+                        break;
+                    default:
+                        // ninguna herramienta activa
+                        break;
+                }
+                repaint();
+            }
+        });
+        //  cuando el usuario arrastra el mouse
+        addMouseMotionListener(new MouseAdapter() {
+
+            public void mouseDragged(MouseEvent e) {
+                if (figuraActual != null) {
+                    figuraActual.actualizar(e.getPoint());
+                    repaint();
+                }
+            }
+        });
+    }
+
+    // métodos públicos para los botones
+    public void setColorDePrimerPlano(Color color) {
+        this.colorDePrimerPlano = color;
+    }
+
+    public void setColorDeSegundoPlano(Color color) {
+        this.colorDeSegundoPlano = color;
     }
 
     public void setHerramienta(String herramienta) {
@@ -40,11 +124,10 @@ public class PanelDeDibujo extends JPanel {
         this.grosorActual = grosor;
     }
 
-    public Color getColorActual() {
-        return colorActual;
+    public Color getColorDePrimerPlano() {
+        return colorDePrimerPlano;
     }
 
-    @Override
     protected void paintComponent(Graphics g) {
         super.paintComponent(g);
         if (imagen == null || imagen.getWidth() != getWidth()
