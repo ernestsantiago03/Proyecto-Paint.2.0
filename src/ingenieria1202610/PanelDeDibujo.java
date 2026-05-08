@@ -72,7 +72,15 @@ public class PanelDeDibujo extends JPanel {
                         figuraActual.setColorRelleno(colorDeSegundoPlano);
                         figuras.add(figuraActual);
                         break;
-
+                    case "balde":
+                        // verificar que la imagen ya existe
+                        if (imagen != null) {
+                            BoteDePintura balde = new BoteDePintura(puntoInicial, imagen);
+                            balde.setColorBorde(colorDePrimerPlano);
+                            balde.rellenar();
+                            // guardar el estado actual de la imagen en la lista
+                            figuras.add(balde);
+                        }
                     default:
                         // ninguna herramienta activa
                         break;

@@ -11,10 +11,19 @@ import java.awt.Point;
  *
  * @author Santiago
  */
-public class Rectangulo extends BoteDePintura{
+public class Rectangulo extends Figura{
+
+    private Point inicio;
+    private Point fin;
 
     public Rectangulo(Point inicio) {
-        super(inicio);
+        this.inicio = inicio;
+        this.fin = inicio;
+    }
+
+    @Override
+    public void actualizar(Point puntoActual) {
+        this.fin = puntoActual;
     }
 
     @Override
@@ -27,9 +36,13 @@ public class Rectangulo extends BoteDePintura{
         int alto = Math.abs(fin.y - inicio.y);
 
         // RELLENO
-        pintarRelleno(g, x, y, ancho, alto);
+        if (colorRelleno != null) {
+            g.setColor(colorRelleno);
+            g.fillRect(x, y, ancho, alto);
+        }
 
         // BORDE
-        pintarBorde(g, x, y, ancho, alto);
-    } 
+        g.setColor(colorBorde);
+        g.drawRect(x, y, ancho, alto);
+    }
 }
