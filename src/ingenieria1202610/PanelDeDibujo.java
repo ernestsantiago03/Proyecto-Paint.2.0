@@ -36,7 +36,7 @@ public class PanelDeDibujo extends JPanel {
     private Color colorDePrimerPlano = Color.BLACK;
     private Color colorDeSegundoPlano = null;
     private String herramienta = "Ninguna";
-    private int grosorActual = 4;
+    private int grosorActual = 3;
 
     public PanelDeDibujo() {
         setBackground(Color.WHITE);
@@ -67,17 +67,11 @@ public class PanelDeDibujo extends JPanel {
                         break;
 
                     case "rectangulo":
-
                         figuraActual = new Rectangulo(e.getPoint());
-
                         figuraActual.setColorBorde(colorDePrimerPlano);
-
                         figuraActual.setColorRelleno(colorDeSegundoPlano);
-
                         figuras.add(figuraActual);
-
                         break;
-
                     case "balde":
                         // verificar que la imagen ya existe
                         if (imagen != null) {
@@ -87,6 +81,11 @@ public class PanelDeDibujo extends JPanel {
                             // guardar el estado actual de la imagen en la lista
                             figuras.add(balde);
                         }
+                    case "pincel": // <-- NUEVO CASO
+                        figuraActual = new figuras.Pincel();
+                        figuraActual.setColorBorde(colorDePrimerPlano);
+                        figuraActual.setGrosor(grosorActual);
+                        figuras.add(figuraActual);
                         break;
                     default:
                         // ninguna herramienta activa

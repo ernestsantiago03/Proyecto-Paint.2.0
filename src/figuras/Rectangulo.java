@@ -45,5 +45,4 @@ public class Rectangulo extends Figura{
         g.setColor(colorBorde);
         g.drawRect(x, y, ancho, alto);
     }
-    
 }
