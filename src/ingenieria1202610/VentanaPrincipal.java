@@ -213,11 +213,6 @@ public class VentanaPrincipal extends javax.swing.JFrame {
 
         btnHerramientas.add(btnSubsionadorColores);
         btnSubsionadorColores.setIcon(new javax.swing.ImageIcon(getClass().getResource("/iconos/icons8-cuentagotas-de-color-24.png"))); // NOI18N
-        btnSubsionadorColores.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnSubsionadorColoresActionPerformed(evt);
-            }
-        });
         jPanel5.add(btnSubsionadorColores, new org.netbeans.lib.awtextra.AbsoluteConstraints(320, 40, 50, -1));
 
         btnHerramientas.add(btnPincel);
@@ -536,6 +531,46 @@ public class VentanaPrincipal extends javax.swing.JFrame {
     private void sliderGrosorStateChanged(javax.swing.event.ChangeEvent evt) {//GEN-FIRST:event_sliderGrosorStateChanged
         panelDeDibujo.setGrosor(sliderGrosor.getValue());
     }//GEN-LAST:event_sliderGrosorStateChanged
+
+    private void btnColorRosadoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnColorRosadoActionPerformed
+        miControlador.aplicarColorSecundario(new java.awt.Color(255, 0, 255));
+    }//GEN-LAST:event_btnColorRosadoActionPerformed
+
+    private void btnColorBlancoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnColorBlancoActionPerformed
+        miControlador.aplicarColorSecundario(java.awt.Color.WHITE);
+    }//GEN-LAST:event_btnColorBlancoActionPerformed
+
+    private void btnColorVerdeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnColorVerdeActionPerformed
+        miControlador.aplicarColorSecundario(java.awt.Color.GREEN);
+    }//GEN-LAST:event_btnColorVerdeActionPerformed
+
+    private void btnColorNaranjaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnColorNaranjaActionPerformed
+        miControlador.aplicarColorSecundario(new java.awt.Color(255, 102, 0));
+    }//GEN-LAST:event_btnColorNaranjaActionPerformed
+
+    private void btnColorVioletaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnColorVioletaActionPerformed
+        miControlador.aplicarColorSecundario(new java.awt.Color(102, 0, 204));
+    }//GEN-LAST:event_btnColorVioletaActionPerformed
+
+    private void btnColorAmarilloActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnColorAmarilloActionPerformed
+        miControlador.aplicarColorSecundario(java.awt.Color.YELLOW);
+    }//GEN-LAST:event_btnColorAmarilloActionPerformed
+
+    private void btnColorAzulActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnColorAzulActionPerformed
+        miControlador.aplicarColorSecundario(java.awt.Color.BLUE);
+    }//GEN-LAST:event_btnColorAzulActionPerformed
+
+    private void btnColorGrisActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnColorGrisActionPerformed
+        miControlador.aplicarColorSecundario(java.awt.Color.GRAY);
+    }//GEN-LAST:event_btnColorGrisActionPerformed
+
+    private void btnNegroActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnNegroActionPerformed
+        miControlador.aplicarColorSecundario(java.awt.Color.BLACK);
+    }//GEN-LAST:event_btnNegroActionPerformed
+
+    private void btnColorRojoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnColorRojoActionPerformed
+        miControlador.aplicarColorSecundario(java.awt.Color.RED);
+    }//GEN-LAST:event_btnColorRojoActionPerformed
 
     /**
      * @param args the command line arguments
