@@ -122,7 +122,6 @@ public class VentanaPrincipal extends javax.swing.JFrame {
                 formWindowClosing(evt);
             }
         });
-        getContentPane().setLayout(new java.awt.BorderLayout());
 
         jPanel7.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
@@ -325,7 +324,7 @@ public class VentanaPrincipal extends javax.swing.JFrame {
         });
         jPanel5.add(btnColorNaranja, new org.netbeans.lib.awtextra.AbsoluteConstraints(800, 50, -1, 20));
 
-        btnColorVioleta.setBackground(new java.awt.Color(204, 0, 0));
+        btnColorVioleta.setBackground(new java.awt.Color(102, 0, 204));
         btnColores.add(btnColorVioleta);
         btnColorVioleta.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
