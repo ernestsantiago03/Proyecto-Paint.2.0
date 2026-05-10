@@ -20,6 +20,5 @@ public class ControladorColores {
 
     public void aplicarColorSecundario(Color colorSeleccionado) {
         panel.setColorDePrimerPlano(colorSeleccionado);//Para mantener placa de colores fija y no afectar los principales. 
-        panel.setColorDeSegundoPlano(Color.WHITE); // Relleno siempre blanco.
     }
 }
