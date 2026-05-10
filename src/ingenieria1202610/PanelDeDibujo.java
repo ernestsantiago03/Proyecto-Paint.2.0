@@ -45,7 +45,6 @@ public class PanelDeDibujo extends JPanel {
         addMouseListener(new MouseAdapter() {
             @Override
             public void mousePressed(MouseEvent e) {
-                figuraActual = null; // se reinicia en cada clic
                 Point puntoInicial = e.getPoint();
                 switch (herramienta) {
                     case "lapiz":
@@ -92,14 +91,6 @@ public class PanelDeDibujo extends JPanel {
                         // ninguna herramienta activa
                         break;
                 }
-                    // Aca se trabaja para que todas las figuras existentes y posibles por agregar
-                    // asuman los colores automáticamente. 
-                    if (figuraActual != null && !herramienta.equals("balde")) {
-                        figuraActual.setColorBorde(colorDePrimerPlano); 
-                        figuraActual.setColorRelleno(colorDeSegundoPlano); 
-                        figuraActual.setGrosor(grosorActual); 
-                        figuras.add(figuraActual);
-                    }
                 repaint();
             }
         });
