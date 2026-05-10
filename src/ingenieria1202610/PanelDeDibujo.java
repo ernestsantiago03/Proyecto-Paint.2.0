@@ -4,15 +4,29 @@
  */
 package ingenieria1202610;
 
+import figuras.DibujoLibre;
 import figuras.Figura;
 import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
+import figuras.Borrador;
+import figuras.BoteDePintura;
+import figuras.Linea;
+import figuras.Rectangulo;
+import figuras.SuccionadorDeColores;
+import java.awt.Cursor;
+import java.awt.Point;
 import java.awt.RenderingHints;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 import java.awt.image.BufferedImage;
 import java.util.ArrayList;
 import javax.swing.JPanel;
 
+/**
+ *
+ * @author Osvaldo
+ */
 public class PanelDeDibujo extends JPanel {
 
     // lista de todas las figuras dibujadas
@@ -21,13 +35,103 @@ public class PanelDeDibujo extends JPanel {
     private BufferedImage imagen;
     // ← NUEVO: campos para el lápiz
     private Figura figuraActual;
-    private Color colorActual = Color.BLACK;
+    private Color colorDePrimerPlano = Color.BLACK;
+    private Color colorDeSegundoPlano = null;
     private String herramienta = "Ninguna";
-    private int grosorActual = 2;
+    private int grosorActual = 3;
 
-    // ← NUEVO: métodos públicos para los botones
-    public void setColorActual(Color color) {
-        this.colorActual = color;
+    public PanelDeDibujo() {
+        setBackground(Color.WHITE);
+
+        //  cuando el usuario hace clic
+        addMouseListener(new MouseAdapter() {
+            @Override
+            public void mousePressed(MouseEvent e) {
+                Point puntoInicial = e.getPoint();
+                switch (herramienta) {
+                    case "lapiz":
+                        figuraActual = new DibujoLibre();
+                        figuraActual.setColorBorde(colorDePrimerPlano);
+                        figuraActual.setGrosor(grosorActual);
+                        figuras.add(figuraActual);
+                        break;
+
+                    case "linea":
+                        figuraActual = new Linea(e.getPoint());
+                        figuraActual.setColorBorde(colorDePrimerPlano);
+                        figuraActual.setGrosor(grosorActual);
+                        figuras.add(figuraActual);
+                        break;
+
+                    case "borrador":
+                        figuraActual = new Borrador();
+                        figuras.add(figuraActual);
+                        break;
+
+                    case "rectangulo":
+                        figuraActual = new Rectangulo(e.getPoint());
+                        figuraActual.setColorBorde(colorDePrimerPlano);
+                        figuraActual.setColorRelleno(colorDeSegundoPlano);
+                        figuras.add(figuraActual);
+                        break;
+                    case "balde":
+                        // verificar que la imagen ya existe
+                        if (imagen != null) {
+                            BoteDePintura balde = new BoteDePintura(puntoInicial, imagen);
+                            balde.setColorBorde(colorDePrimerPlano);
+                            balde.rellenar();
+                            // guardar el estado actual de la imagen en la lista
+                            figuras.add(balde);
+                            break;
+                        }
+                    case "pincel": // <-- NUEVO CASO
+                        figuraActual = new figuras.Pincel();
+                        figuraActual.setColorBorde(colorDePrimerPlano);
+                        figuraActual.setGrosor(grosorActual);
+                        figuras.add(figuraActual);
+                        break;
+                    case "succionador": // Nuevo
+                        if (imagen != null) {
+
+                            Color colorSeleccionado = SuccionadorDeColores.capturarColor( imagen, puntoInicial.x,puntoInicial.y);
+
+                            // Actualiza el color activo
+                            setColorDePrimerPlano(colorSeleccionado);
+                            
+                            herramienta = "lapiz";// Cambia automáticamente al lápiz
+
+                            // Restaura el cursor normal
+                            setCursor(Cursor.getDefaultCursor());
+                        }
+                        break;
+
+                    default:
+                        // ninguna herramienta activa
+                        break;
+                }
+
+                repaint();
+            }
+        });
+        //  cuando el usuario arrastra el mouse
+        addMouseMotionListener(new MouseAdapter() {
+
+            public void mouseDragged(MouseEvent e) {
+                if (figuraActual != null) {
+                    figuraActual.actualizar(e.getPoint());
+                    repaint();
+                }
+            }
+        });
+    }
+
+    // métodos públicos para los botones
+    public void setColorDePrimerPlano(Color color) {
+        this.colorDePrimerPlano = color;
+    }
+
+    public void setColorDeSegundoPlano(Color color) {
+        this.colorDeSegundoPlano = color;
     }
 
     public void setHerramienta(String herramienta) {
@@ -38,10 +142,13 @@ public class PanelDeDibujo extends JPanel {
         this.grosorActual = grosor;
     }
 
-    public Color getColorActual() {
-        return colorActual;
+    public Color getColorDePrimerPlano() {
+        return colorDePrimerPlano;
     }
 
+    public String getHerramienta() {
+        return herramienta;
+    }
 
     public BufferedImage getImagen() {
         return imagen;

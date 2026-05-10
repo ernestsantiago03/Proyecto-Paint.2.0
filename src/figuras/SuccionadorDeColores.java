@@ -39,7 +39,7 @@ public class SuccionadorDeColores {
 
                 Toolkit tk = Toolkit.getDefaultToolkit();
                 // El Point(0, 31) pone la "punta" de acción abajo a la izquierda del icono
-                return tk.createCustomCursor(imgEscalada, new Point(0, 31), "Cuentagotas");
+                return tk.createCustomCursor(imgEscalada, new Point(0, 21), "Cuentagotas");
             }
             // Definimos el HotSpot (la punta del cuentagotas)
 
