@@ -13,7 +13,6 @@ import java.awt.image.BufferedImage;
 import java.util.ArrayList;
 import javax.swing.JPanel;
 
-
 public class PanelDeDibujo extends JPanel {
 
     // lista de todas las figuras dibujadas
@@ -25,7 +24,6 @@ public class PanelDeDibujo extends JPanel {
     private Color colorActual = Color.BLACK;
     private String herramienta = "Ninguna";
     private int grosorActual = 2;
-
 
     // ← NUEVO: métodos públicos para los botones
     public void setColorActual(Color color) {
@@ -42,6 +40,11 @@ public class PanelDeDibujo extends JPanel {
 
     public Color getColorActual() {
         return colorActual;
+    }
+
+
+    public BufferedImage getImagen() {
+        return imagen;
     }
 
     @Override

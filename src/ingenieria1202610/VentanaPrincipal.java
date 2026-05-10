@@ -5,6 +5,7 @@
 package ingenieria1202610;
 
 import figuras.ControladorCierre;
+import figuras.SuccionadorDeColores;
 
 /**
  *
@@ -183,6 +184,11 @@ private PanelDeDibujo panelDeDibujo;
 
         btnHerramientas.add(btnSubsionadorColores);
         btnSubsionadorColores.setIcon(new javax.swing.ImageIcon(getClass().getResource("/iconos/icons8-cuentagotas-de-color-24.png"))); // NOI18N
+        btnSubsionadorColores.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnSubsionadorColoresActionPerformed(evt);
+            }
+        });
         jPanel5.add(btnSubsionadorColores, new org.netbeans.lib.awtextra.AbsoluteConstraints(320, 40, 50, -1));
 
         btnHerramientas.add(btnPincel);
@@ -412,6 +418,12 @@ private PanelDeDibujo panelDeDibujo;
     private void btnLineaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLineaActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_btnLineaActionPerformed
+
+    private void btnSubsionadorColoresActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSubsionadorColoresActionPerformed
+        panelDeDibujo.setHerramienta("selector");
+
+        panelDeDibujo.setCursor(SuccionadorDeColores.obtenerCursorCuentagotas());
+    }//GEN-LAST:event_btnSubsionadorColoresActionPerformed
 
     /**
      * @param args the command line arguments
