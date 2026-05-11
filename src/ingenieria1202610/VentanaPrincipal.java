@@ -21,6 +21,7 @@ public class VentanaPrincipal extends javax.swing.JFrame {
      * Creates new form VentanaPrincipal
      */
     private PanelDeDibujo panelDeDibujo;
+    private ControladorColores miControlador;
 
     public VentanaPrincipal() {
         initComponents();
@@ -31,6 +32,8 @@ public class VentanaPrincipal extends javax.swing.JFrame {
         panelDeDibujo.setBackground(java.awt.Color.WHITE); // ← AGREGA ESTA
         panelDeDibujo.setOpaque(true);                     // ← AGREGA ESTA
         getContentPane().add(panelDeDibujo, java.awt.BorderLayout.CENTER);
+        // Inicializa el controlador con el panel
+        miControlador = new ControladorColores(panelDeDibujo);
         btnLapiz.addActionListener(e -> panelDeDibujo.setHerramienta("lapiz")); // 
         btnLinea.addActionListener(e -> panelDeDibujo.setHerramienta("linea"));
         btnBorrador.addActionListener(e -> panelDeDibujo.setHerramienta("borrador"));
