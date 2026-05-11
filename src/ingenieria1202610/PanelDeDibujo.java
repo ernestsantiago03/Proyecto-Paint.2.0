@@ -13,6 +13,8 @@ import figuras.Borrador;
 import figuras.BoteDePintura;
 import figuras.Linea;
 import figuras.Rectangulo;
+import figuras.SuccionadorDeColores;
+import java.awt.Cursor;
 import java.awt.Point;
 import java.awt.RenderingHints;
 import java.awt.event.MouseAdapter;
@@ -45,7 +47,6 @@ public class PanelDeDibujo extends JPanel {
         addMouseListener(new MouseAdapter() {
             @Override
             public void mousePressed(MouseEvent e) {
-                figuraActual = null; // se reinicia en cada clic
                 Point puntoInicial = e.getPoint();
                 switch (herramienta) {
                     case "lapiz":
@@ -81,6 +82,7 @@ public class PanelDeDibujo extends JPanel {
                             balde.rellenar();
                             // guardar el estado actual de la imagen en la lista
                             figuras.add(balde);
+                            break;
                         }
                     case "pincel": // <-- NUEVO CASO
                         figuraActual = new figuras.Pincel();
@@ -88,18 +90,26 @@ public class PanelDeDibujo extends JPanel {
                         figuraActual.setGrosor(grosorActual);
                         figuras.add(figuraActual);
                         break;
+                    case "succionador": // Nuevo
+                        if (imagen != null) {
+
+                            Color colorSeleccionado = SuccionadorDeColores.capturarColor( imagen, puntoInicial.x,puntoInicial.y);
+
+                            // Actualiza el color activo
+                            setColorDePrimerPlano(colorSeleccionado);
+                            
+                            herramienta = "lapiz";// Cambia automáticamente al lápiz
+
+                            // Restaura el cursor normal
+                            setCursor(Cursor.getDefaultCursor());
+                        }
+                        break;
+
                     default:
                         // ninguna herramienta activa
                         break;
                 }
-                    // Aca se trabaja para que todas las figuras existentes y posibles por agregar
-                    // asuman los colores automáticamente. 
-                    if (figuraActual != null && !herramienta.equals("balde")) {
-                        figuraActual.setColorBorde(colorDePrimerPlano); 
-                        figuraActual.setColorRelleno(colorDeSegundoPlano); 
-                        figuraActual.setGrosor(grosorActual); 
-                        figuras.add(figuraActual);
-                    }
+
                 repaint();
             }
         });
@@ -136,6 +146,15 @@ public class PanelDeDibujo extends JPanel {
         return colorDePrimerPlano;
     }
 
+    public String getHerramienta() {
+        return herramienta;
+    }
+
+    public BufferedImage getImagen() {
+        return imagen;
+    }
+
+    @Override
     protected void paintComponent(Graphics g) {
         super.paintComponent(g);
         if (imagen == null || imagen.getWidth() != getWidth()

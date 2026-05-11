@@ -5,6 +5,7 @@
 package ingenieria1202610;
 
 import figuras.ControladorCierre;
+import figuras.SuccionadorDeColores;
 import java.awt.Color;
 import javax.swing.JColorChooser;
 
@@ -20,16 +21,15 @@ public class VentanaPrincipal extends javax.swing.JFrame {
      * Creates new form VentanaPrincipal
      */
     private PanelDeDibujo panelDeDibujo;
-      ControladorColores miControlador;
+
     public VentanaPrincipal() {
         initComponents();
- 
+
         btnColorSegundoPlano.setBackground(Color.WHITE);
         btnColorPrimerPlano.setSelected(true);
         panelDeDibujo = new PanelDeDibujo();
         panelDeDibujo.setBackground(java.awt.Color.WHITE); // ← AGREGA ESTA
-        panelDeDibujo.setOpaque(true);        
-        miControlador = new ControladorColores(panelDeDibujo);
+        panelDeDibujo.setOpaque(true);                     // ← AGREGA ESTA
         getContentPane().add(panelDeDibujo, java.awt.BorderLayout.CENTER);
         btnLapiz.addActionListener(e -> panelDeDibujo.setHerramienta("lapiz")); // 
         btnLinea.addActionListener(e -> panelDeDibujo.setHerramienta("linea"));
@@ -37,7 +37,20 @@ public class VentanaPrincipal extends javax.swing.JFrame {
         btnCuadrado.addActionListener(e -> panelDeDibujo.setHerramienta("rectangulo"));
         btnBotePintura.addActionListener(e -> panelDeDibujo.setHerramienta("balde"));
         btnPincel.addActionListener(e -> panelDeDibujo.setHerramienta("pincel"));
-        
+
+        panelDeDibujo.addMouseListener(new java.awt.event.MouseAdapter() {
+
+            @Override
+            public void mousePressed(java.awt.event.MouseEvent e) {
+
+                Color nuevoColor = panelDeDibujo.getColorDePrimerPlano();
+
+                btnColorPrimerPlano.setBackground(nuevoColor);
+
+                panelDeDibujo.setColorDePrimerPlano(nuevoColor);
+            }
+        });
+
     }
 
     /**
@@ -290,92 +303,42 @@ public class VentanaPrincipal extends javax.swing.JFrame {
 
         btnColorRosado.setBackground(new java.awt.Color(255, 0, 255));
         btnColores.add(btnColorRosado);
-        btnColorRosado.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnColorRosadoActionPerformed(evt);
-            }
-        });
         jPanel5.add(btnColorRosado, new org.netbeans.lib.awtextra.AbsoluteConstraints(760, 10, -1, 20));
 
         btnColores.add(btnColorBlanco);
-        btnColorBlanco.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnColorBlancoActionPerformed(evt);
-            }
-        });
         jPanel5.add(btnColorBlanco, new org.netbeans.lib.awtextra.AbsoluteConstraints(760, 50, -1, 20));
 
         btnColorVerde.setBackground(new java.awt.Color(0, 255, 0));
         btnColores.add(btnColorVerde);
-        btnColorVerde.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnColorVerdeActionPerformed(evt);
-            }
-        });
         jPanel5.add(btnColorVerde, new org.netbeans.lib.awtextra.AbsoluteConstraints(800, 10, -1, 20));
 
         btnColorNaranja.setBackground(new java.awt.Color(255, 204, 0));
         btnColores.add(btnColorNaranja);
         btnColorNaranja.setToolTipText("");
-        btnColorNaranja.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnColorNaranjaActionPerformed(evt);
-            }
-        });
         jPanel5.add(btnColorNaranja, new org.netbeans.lib.awtextra.AbsoluteConstraints(800, 50, -1, 20));
 
-        btnColorVioleta.setBackground(new java.awt.Color(102, 0, 204));
+        btnColorVioleta.setBackground(new java.awt.Color(204, 0, 0));
         btnColores.add(btnColorVioleta);
-        btnColorVioleta.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnColorVioletaActionPerformed(evt);
-            }
-        });
         jPanel5.add(btnColorVioleta, new org.netbeans.lib.awtextra.AbsoluteConstraints(840, 10, -1, 20));
 
         btnColorAmarillo.setBackground(new java.awt.Color(255, 255, 0));
         btnColores.add(btnColorAmarillo);
-        btnColorAmarillo.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnColorAmarilloActionPerformed(evt);
-            }
-        });
         jPanel5.add(btnColorAmarillo, new org.netbeans.lib.awtextra.AbsoluteConstraints(840, 50, -1, 20));
 
         btnColorAzul.setBackground(new java.awt.Color(0, 0, 204));
         btnColores.add(btnColorAzul);
-        btnColorAzul.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnColorAzulActionPerformed(evt);
-            }
-        });
         jPanel5.add(btnColorAzul, new org.netbeans.lib.awtextra.AbsoluteConstraints(880, 10, -1, 20));
 
         btnColorGris.setBackground(new java.awt.Color(204, 204, 204));
         btnColores.add(btnColorGris);
-        btnColorGris.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnColorGrisActionPerformed(evt);
-            }
-        });
         jPanel5.add(btnColorGris, new org.netbeans.lib.awtextra.AbsoluteConstraints(880, 50, -1, 20));
 
         btnNegro.setBackground(new java.awt.Color(0, 0, 0));
         btnColores.add(btnNegro);
-        btnNegro.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnNegroActionPerformed(evt);
-            }
-        });
         jPanel5.add(btnNegro, new org.netbeans.lib.awtextra.AbsoluteConstraints(920, 10, -1, 20));
 
         btnColorRojo.setBackground(new java.awt.Color(255, 51, 0));
         btnColores.add(btnColorRojo);
-        btnColorRojo.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnColorRojoActionPerformed(evt);
-            }
-        });
         jPanel5.add(btnColorRojo, new org.netbeans.lib.awtextra.AbsoluteConstraints(920, 50, -1, 20));
 
         btnColores.add(btnPaletaDeColores);
@@ -511,13 +474,19 @@ public class VentanaPrincipal extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_btnLineaActionPerformed
 
+
+    private void btnSubsionadorColoresActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSubsionadorColoresActionPerformed
+        panelDeDibujo.setHerramienta("succionador");
+        panelDeDibujo.setCursor(SuccionadorDeColores.obtenerCursorCuentagotas());
+    }//GEN-LAST:event_btnSubsionadorColoresActionPerformed
+
     private void btnPaletaDeColoresActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPaletaDeColoresActionPerformed
         Color color = JColorChooser.showDialog(this, "Seleccionar color", Color.black, false);
 
         if (color == null) {
             return;
         }
-        
+
         System.out.println(color);
         if (btnColorPrimerPlano.isSelected()) {
             btnColorPrimerPlano.setBackground(color);
@@ -532,23 +501,23 @@ public class VentanaPrincipal extends javax.swing.JFrame {
     }//GEN-LAST:event_btnPaletaDeColoresActionPerformed
 
     private void btnColorPrimerPlanoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnColorPrimerPlanoActionPerformed
-         Color colorTemp = btnColorPrimerPlano.getBackground();
-    btnColorPrimerPlano.setBackground(btnColorSegundoPlano.getBackground());
-    btnColorSegundoPlano.setBackground(colorTemp);
+        Color colorTemp = btnColorPrimerPlano.getBackground();
+        btnColorPrimerPlano.setBackground(btnColorSegundoPlano.getBackground());
+        btnColorSegundoPlano.setBackground(colorTemp);
 
-    panelDeDibujo.setColorDePrimerPlano(btnColorPrimerPlano.getBackground());
-    panelDeDibujo.setColorDeSegundoPlano(btnColorSegundoPlano.getBackground());
-    
+        panelDeDibujo.setColorDePrimerPlano(btnColorPrimerPlano.getBackground());
+        panelDeDibujo.setColorDeSegundoPlano(btnColorSegundoPlano.getBackground());
+
     }//GEN-LAST:event_btnColorPrimerPlanoActionPerformed
 
     private void btnColorSegundoPlanoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnColorSegundoPlanoActionPerformed
-       Color colorTemp = btnColorPrimerPlano.getBackground();
-    btnColorPrimerPlano.setBackground(btnColorSegundoPlano.getBackground());
-    btnColorSegundoPlano.setBackground(colorTemp);
+        Color colorTemp = btnColorPrimerPlano.getBackground();
+        btnColorPrimerPlano.setBackground(btnColorSegundoPlano.getBackground());
+        btnColorSegundoPlano.setBackground(colorTemp);
 
-    panelDeDibujo.setColorDePrimerPlano(btnColorPrimerPlano.getBackground());
-    panelDeDibujo.setColorDeSegundoPlano(btnColorSegundoPlano.getBackground());
-    
+        panelDeDibujo.setColorDePrimerPlano(btnColorPrimerPlano.getBackground());
+        panelDeDibujo.setColorDeSegundoPlano(btnColorSegundoPlano.getBackground());
+
     }//GEN-LAST:event_btnColorSegundoPlanoActionPerformed
 
     private void btnCuadradoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCuadradoActionPerformed
