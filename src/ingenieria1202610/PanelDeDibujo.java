@@ -1,7 +1,3 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
 package ingenieria1202610;
 
 import figuras.DibujoLibre;
@@ -22,17 +18,19 @@ import java.util.ArrayList;
 import javax.swing.JPanel;
 
 /**
- *
  * @author Osvaldo
  */
 public class PanelDeDibujo extends JPanel {
 
+    // Lista de todas las figuras dibujadas
     private ArrayList<Figura> figurasRehacer = new ArrayList<>();
     // lista de todas las figuras dibujadas
     private ArrayList<Figura> figuras = new ArrayList<>();
-    // imagen en memoria donde se dibuja todo
+
+    // Imagen en memoria donde se dibuja todo
     private BufferedImage imagen;
-    // ← NUEVO: campos para el lápiz
+
+    // Campos para las herramientas
     private Figura figuraActual;
     private Color colorDePrimerPlano = Color.BLACK;
     private Color colorDeSegundoPlano = null;
@@ -40,10 +38,13 @@ public class PanelDeDibujo extends JPanel {
     private int grosorActual = 3;
     private figuras.Letras letrasActual;
 
+    // PAINT-0003: imagen de fondo para mostrar archivos abiertos
+    private BufferedImage imagenFondo;
+
     public PanelDeDibujo() {
         setBackground(Color.WHITE);
 
-        //  cuando el usuario hace clic
+        // Cuando el usuario hace clic
         addMouseListener(new MouseAdapter() {
             @Override
             public void mousePressed(MouseEvent e) {
@@ -78,16 +79,18 @@ public class PanelDeDibujo extends JPanel {
                         figuras.add(figuraActual);
                         figurasRehacer.clear();
                         break;
+
                     case "balde":
-                        // verificar que la imagen ya existe
+                        // Verificar que la imagen ya existe
                         if (imagen != null) {
                             BoteDePintura balde = new BoteDePintura(puntoInicial, imagen);
                             balde.setColorBorde(colorDePrimerPlano);
                             balde.rellenar();
-                            // guardar el estado actual de la imagen en la lista
                             figuras.add(balde);
                             figurasRehacer.clear();
                         }
+
+                    case "pincel":
                         break;
 
                     case "pincel": // <-- NUEVO CASO
@@ -115,16 +118,16 @@ public class PanelDeDibujo extends JPanel {
                         figuraActual.setColorBorde(colorDePrimerPlano);
                         figuras.add(figuraActual);
                         break;
+
                     default:
-                        // ninguna herramienta activa
                         break;
                 }
                 repaint();
             }
         });
-        //  cuando el usuario arrastra el mouse
-        addMouseMotionListener(new MouseAdapter() {
 
+        // Cuando el usuario arrastra el mouse
+        addMouseMotionListener(new MouseAdapter() {
             public void mouseDragged(MouseEvent e) {
                 if (figuraActual != null) {
                     figuraActual.actualizar(e.getPoint());
@@ -159,7 +162,7 @@ public class PanelDeDibujo extends JPanel {
         setFocusable(true);
     }
 
-    // métodos públicos para los botones
+    // Métodos públicos para los botones
     public void setColorDePrimerPlano(Color color) {
         this.colorDePrimerPlano = color;
     }
@@ -180,8 +183,10 @@ public class PanelDeDibujo extends JPanel {
         return colorDePrimerPlano;
     }
 
+    @Override
     protected void paintComponent(Graphics g) {
         super.paintComponent(g);
+
         if (imagen == null || imagen.getWidth() != getWidth()
                 || imagen.getHeight() != getHeight()) {
             BufferedImage nueva = new BufferedImage(
@@ -197,18 +202,51 @@ public class PanelDeDibujo extends JPanel {
             ng.dispose();
             imagen = nueva;
         }
+
         Graphics2D g2 = imagen.createGraphics();
         g2.setRenderingHint(RenderingHints.KEY_ANTIALIASING,
                 RenderingHints.VALUE_ANTIALIAS_ON);
+
+        // Fondo blanco
         g2.setColor(Color.WHITE);
         g2.fillRect(0, 0, imagen.getWidth(), imagen.getHeight());
+
+        // PAINT-0003: si hay imagen de fondo cargada, se dibuja primero
+        if (imagenFondo != null) {
+            g2.drawImage(imagenFondo, 0, 0, imagen.getWidth(), imagen.getHeight(), null);
+        }
+
+        // Dibuja las figuras encima de la imagen de fondo
         for (Figura figura : figuras) {
             figura.dibujar(g2);
         }
+
         g2.dispose();
         g.drawImage(imagen, 0, 0, null);
     }
 
+    // PAINT-0003: carga una imagen externa en el lienzo (Abrir archivo)
+    public void cargarImagen(BufferedImage img) {
+        this.imagenFondo = img;
+        this.imagen = null;
+        this.figuras.clear();
+        repaint();
+    }
+
+    // PAINT-0003: limpia el lienzo por completo (Nuevo lienzo)
+    public void limpiar() {
+        this.imagenFondo = null;
+        this.figuras.clear();
+        this.imagen = null;
+        repaint();
+    }
+
+    // PAINT-0003: indica si el lienzo tiene contenido dibujado o imagen cargada
+    public boolean estaModificado() {
+        return !figuras.isEmpty() || imagenFondo != null;
+    }
+
+}
     //Hector
     public void deshacer() {
         if (!figuras.isEmpty()) {

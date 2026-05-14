@@ -36,6 +36,7 @@ public class VentanaPrincipal extends javax.swing.JFrame {
         btnCuadrado.addActionListener(e -> panelDeDibujo.setHerramienta("rectangulo"));
         btnBotePintura.addActionListener(e -> panelDeDibujo.setHerramienta("balde"));
         btnPincel.addActionListener(e -> panelDeDibujo.setHerramienta("pincel"));
+
         btnCirculo.addActionListener(e -> panelDeDibujo.setHerramienta("circulo"));
         btnIndicacion.addActionListener(e -> panelDeDibujo.setHerramienta("flecha"));
     }
@@ -386,6 +387,11 @@ public class VentanaPrincipal extends javax.swing.JFrame {
         menuArchivo.add(btnNuevo);
 
         btnAbrir.setText("Abrir");
+        btnAbrir.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnAbrirActionPerformed(evt);
+            }
+        });
         menuArchivo.add(btnAbrir);
 
         btnGuardar.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_S, java.awt.event.InputEvent.ALT_DOWN_MASK | java.awt.event.InputEvent.CTRL_DOWN_MASK));
@@ -454,7 +460,7 @@ public class VentanaPrincipal extends javax.swing.JFrame {
     }//GEN-LAST:event_btnGuardarActionPerformed
 
     private void btnNuevoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnNuevoActionPerformed
-        // TODO add your handling code here:
+        figuras.AbrirArchivo.nuevo(panelDeDibujo, this);        // TODO add your handling code here:
     }//GEN-LAST:event_btnNuevoActionPerformed
 
     private void btnImprimirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnImprimirActionPerformed
@@ -538,6 +544,9 @@ public class VentanaPrincipal extends javax.swing.JFrame {
         panelDeDibujo.setGrosor(sliderGrosor.getValue());
     }//GEN-LAST:event_sliderGrosorStateChanged
 
+    private void btnAbrirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAbrirActionPerformed
+        figuras.AbrirArchivo.abrir(panelDeDibujo, this);        // TODO add your handling code here:
+    }//GEN-LAST:event_btnAbrirActionPerformed
     private void btnCirculoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCirculoActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_btnCirculoActionPerformed
