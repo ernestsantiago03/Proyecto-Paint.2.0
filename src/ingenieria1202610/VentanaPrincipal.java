@@ -20,7 +20,6 @@ public class VentanaPrincipal extends javax.swing.JFrame {
      * Creates new form VentanaPrincipal
      */
     private PanelDeDibujo panelDeDibujo;
-   
 
     public VentanaPrincipal() {
         initComponents();
@@ -540,20 +539,20 @@ public class VentanaPrincipal extends javax.swing.JFrame {
     }//GEN-LAST:event_sliderGrosorStateChanged
 
     private void btnCirculoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCirculoActionPerformed
-        //btnCirculo.addActionListener(e -> panelDeDibujo.setHerramienta("circulo"));        // TODO add your handling code here:
+        // TODO add your handling code here:
     }//GEN-LAST:event_btnCirculoActionPerformed
 
     private void btnIndicacionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnIndicacionActionPerformed
-        //btnIndicacion.addActionListener(e -> panelDeDibujo.setHerramienta("flecha"));        // TODO add your handling code here:
+        // TODO add your handling code here:
     }//GEN-LAST:event_btnIndicacionActionPerformed
     private void btnLetrasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLetrasActionPerformed
         panelDeDibujo.setHerramienta("letras");
-        panelDeDibujo.setCursor(new java.awt.Cursor (java.awt.Cursor.TEXT_CURSOR));
+        panelDeDibujo.setCursor(new java.awt.Cursor(java.awt.Cursor.TEXT_CURSOR));
         panelDeDibujo.requestFocusInWindow();
 
     }//GEN-LAST:event_btnLetrasActionPerformed
     private void btnDeshacerActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDeshacerActionPerformed
-      panelDeDibujo.deshacer();
+        panelDeDibujo.deshacer();
     }//GEN-LAST:event_btnDeshacerActionPerformed
 
     private void btnRehacerActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRehacerActionPerformed

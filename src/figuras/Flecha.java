@@ -4,7 +4,6 @@
  */
 package figuras;
 
-import ingenieria1202610.PanelDeDibujo;
 
 /**
  *

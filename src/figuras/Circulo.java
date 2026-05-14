@@ -4,13 +4,6 @@
  */
 package figuras;
 
-import ingenieria1202610.PanelDeDibujo;
-
-/**
- *
- * @author Argenis
- */
-import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.Point;
