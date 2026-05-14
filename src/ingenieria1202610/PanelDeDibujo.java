@@ -23,6 +23,8 @@ import javax.swing.JPanel;
 public class PanelDeDibujo extends JPanel {
 
     // Lista de todas las figuras dibujadas
+    private ArrayList<Figura> figurasRehacer = new ArrayList<>();
+    // lista de todas las figuras dibujadas
     private ArrayList<Figura> figuras = new ArrayList<>();
 
     // Imagen en memoria donde se dibuja todo
@@ -34,6 +36,7 @@ public class PanelDeDibujo extends JPanel {
     private Color colorDeSegundoPlano = null;
     private String herramienta = "Ninguna";
     private int grosorActual = 3;
+    private figuras.Letras letrasActual;
 
     // PAINT-0003: imagen de fondo para mostrar archivos abiertos
     private BufferedImage imagenFondo;
@@ -52,6 +55,7 @@ public class PanelDeDibujo extends JPanel {
                         figuraActual.setColorBorde(colorDePrimerPlano);
                         figuraActual.setGrosor(grosorActual);
                         figuras.add(figuraActual);
+                        figurasRehacer.clear();
                         break;
 
                     case "linea":
@@ -59,11 +63,13 @@ public class PanelDeDibujo extends JPanel {
                         figuraActual.setColorBorde(colorDePrimerPlano);
                         figuraActual.setGrosor(grosorActual);
                         figuras.add(figuraActual);
+                        figurasRehacer.clear();
                         break;
 
                     case "borrador":
                         figuraActual = new Borrador();
                         figuras.add(figuraActual);
+                        figurasRehacer.clear();
                         break;
 
                     case "rectangulo":
@@ -71,6 +77,7 @@ public class PanelDeDibujo extends JPanel {
                         figuraActual.setColorBorde(colorDePrimerPlano);
                         figuraActual.setColorRelleno(colorDeSegundoPlano);
                         figuras.add(figuraActual);
+                        figurasRehacer.clear();
                         break;
 
                     case "balde":
@@ -80,12 +87,35 @@ public class PanelDeDibujo extends JPanel {
                             balde.setColorBorde(colorDePrimerPlano);
                             balde.rellenar();
                             figuras.add(balde);
+                            figurasRehacer.clear();
                         }
 
                     case "pincel":
+                        break;
+
+                    case "pincel": // <-- NUEVO CASO
                         figuraActual = new figuras.Pincel();
                         figuraActual.setColorBorde(colorDePrimerPlano);
                         figuraActual.setGrosor(grosorActual);
+                        figuras.add(figuraActual);
+                        figurasRehacer.clear();
+                        break;
+
+                    case "letras":
+                        figuraActual = new figuras.Letras(e.getPoint());
+                        figuraActual.setColorBorde(colorDePrimerPlano);
+                        figuras.add(figuraActual);
+                        requestFocusInWindow();
+                        break;
+                    case "circulo":
+                        figuraActual = new figuras.Circulo(e.getPoint());
+                        figuraActual.setColorBorde(colorDePrimerPlano);
+                        figuras.add(figuraActual);
+                        break;
+
+                    case "flecha":
+                        figuraActual = new figuras.Flecha(e.getPoint());
+                        figuraActual.setColorBorde(colorDePrimerPlano);
                         figuras.add(figuraActual);
                         break;
 
@@ -105,6 +135,31 @@ public class PanelDeDibujo extends JPanel {
                 }
             }
         });
+
+        addKeyListener(new java.awt.event.KeyAdapter() {
+
+            @Override
+            public void keyTyped(java.awt.event.KeyEvent e) {
+
+                if (figuraActual instanceof figuras.Letras) {
+
+                    figuras.Letras letras = (figuras.Letras) figuraActual;
+
+                    char c = e.getKeyChar();
+
+                    if (c == '\b') {
+                        letras.borrarUltima();
+                    } else if (c != java.awt.event.KeyEvent.CHAR_UNDEFINED) {
+                        letras.agregarLetra(c);
+                    }
+
+                    repaint();
+                }
+            }
+
+        });
+
+        setFocusable(true);
     }
 
     // Métodos públicos para los botones
@@ -191,4 +246,29 @@ public class PanelDeDibujo extends JPanel {
         return !figuras.isEmpty() || imagenFondo != null;
     }
 
+}
+    //Hector
+    public void deshacer() {
+        if (!figuras.isEmpty()) {
+            Figura ultima = figuras.remove(figuras.size() - 1);
+            figurasRehacer.add(ultima);
+            repaint();
+        }
+    }
+
+    //Hector
+    public void rehacer() {
+        if (!figurasRehacer.isEmpty()) {
+            Figura figura = figurasRehacer.remove(figurasRehacer.size() - 1);
+            figuras.add(figura);
+            repaint();
+        }
+    }
+
+    // Metodo agregado por maria Muñoz para permitir la integracion de nuevas figuras
+    // desde la ventana principal sin romper el encapsulamiento del panel.
+    public void agregarFigura(Figura f) {
+        figuras.add(f);
+        repaint();
+    }
 }
