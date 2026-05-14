@@ -23,7 +23,7 @@ public class VentanaPrincipal extends javax.swing.JFrame {
 
     public VentanaPrincipal() {
         initComponents();
- 
+
         btnColorSegundoPlano.setBackground(Color.WHITE);
         btnColorPrimerPlano.setSelected(true);
         panelDeDibujo = new PanelDeDibujo();
@@ -36,7 +36,7 @@ public class VentanaPrincipal extends javax.swing.JFrame {
         btnCuadrado.addActionListener(e -> panelDeDibujo.setHerramienta("rectangulo"));
         btnBotePintura.addActionListener(e -> panelDeDibujo.setHerramienta("balde"));
         btnPincel.addActionListener(e -> panelDeDibujo.setHerramienta("pincel"));
-        
+
     }
 
     /**
@@ -360,6 +360,11 @@ public class VentanaPrincipal extends javax.swing.JFrame {
         menuArchivo.add(btnNuevo);
 
         btnAbrir.setText("Abrir");
+        btnAbrir.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnAbrirActionPerformed(evt);
+            }
+        });
         menuArchivo.add(btnAbrir);
 
         btnGuardar.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_S, java.awt.event.InputEvent.ALT_DOWN_MASK | java.awt.event.InputEvent.CTRL_DOWN_MASK));
@@ -428,7 +433,7 @@ public class VentanaPrincipal extends javax.swing.JFrame {
     }//GEN-LAST:event_btnGuardarActionPerformed
 
     private void btnNuevoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnNuevoActionPerformed
-        // TODO add your handling code here:
+        figuras.AbrirArchivo.nuevo(panelDeDibujo, this);        // TODO add your handling code here:
     }//GEN-LAST:event_btnNuevoActionPerformed
 
     private void btnImprimirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnImprimirActionPerformed
@@ -466,7 +471,7 @@ public class VentanaPrincipal extends javax.swing.JFrame {
         if (color == null) {
             return;
         }
-        
+
         System.out.println(color);
         if (btnColorPrimerPlano.isSelected()) {
             btnColorPrimerPlano.setBackground(color);
@@ -481,23 +486,23 @@ public class VentanaPrincipal extends javax.swing.JFrame {
     }//GEN-LAST:event_btnPaletaDeColoresActionPerformed
 
     private void btnColorPrimerPlanoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnColorPrimerPlanoActionPerformed
-         Color colorTemp = btnColorPrimerPlano.getBackground();
-    btnColorPrimerPlano.setBackground(btnColorSegundoPlano.getBackground());
-    btnColorSegundoPlano.setBackground(colorTemp);
+        Color colorTemp = btnColorPrimerPlano.getBackground();
+        btnColorPrimerPlano.setBackground(btnColorSegundoPlano.getBackground());
+        btnColorSegundoPlano.setBackground(colorTemp);
 
-    panelDeDibujo.setColorDePrimerPlano(btnColorPrimerPlano.getBackground());
-    panelDeDibujo.setColorDeSegundoPlano(btnColorSegundoPlano.getBackground());
-    
+        panelDeDibujo.setColorDePrimerPlano(btnColorPrimerPlano.getBackground());
+        panelDeDibujo.setColorDeSegundoPlano(btnColorSegundoPlano.getBackground());
+
     }//GEN-LAST:event_btnColorPrimerPlanoActionPerformed
 
     private void btnColorSegundoPlanoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnColorSegundoPlanoActionPerformed
-       Color colorTemp = btnColorPrimerPlano.getBackground();
-    btnColorPrimerPlano.setBackground(btnColorSegundoPlano.getBackground());
-    btnColorSegundoPlano.setBackground(colorTemp);
+        Color colorTemp = btnColorPrimerPlano.getBackground();
+        btnColorPrimerPlano.setBackground(btnColorSegundoPlano.getBackground());
+        btnColorSegundoPlano.setBackground(colorTemp);
 
-    panelDeDibujo.setColorDePrimerPlano(btnColorPrimerPlano.getBackground());
-    panelDeDibujo.setColorDeSegundoPlano(btnColorSegundoPlano.getBackground());
-    
+        panelDeDibujo.setColorDePrimerPlano(btnColorPrimerPlano.getBackground());
+        panelDeDibujo.setColorDeSegundoPlano(btnColorSegundoPlano.getBackground());
+
     }//GEN-LAST:event_btnColorSegundoPlanoActionPerformed
 
     private void btnCuadradoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCuadradoActionPerformed
@@ -511,6 +516,10 @@ public class VentanaPrincipal extends javax.swing.JFrame {
     private void sliderGrosorStateChanged(javax.swing.event.ChangeEvent evt) {//GEN-FIRST:event_sliderGrosorStateChanged
         panelDeDibujo.setGrosor(sliderGrosor.getValue());
     }//GEN-LAST:event_sliderGrosorStateChanged
+
+    private void btnAbrirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAbrirActionPerformed
+        figuras.AbrirArchivo.abrir(panelDeDibujo, this);        // TODO add your handling code here:
+    }//GEN-LAST:event_btnAbrirActionPerformed
 
     /**
      * @param args the command line arguments
