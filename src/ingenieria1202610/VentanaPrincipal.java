@@ -206,6 +206,11 @@ public class VentanaPrincipal extends javax.swing.JFrame {
 
         btnHerramientas.add(btnLetras);
         btnLetras.setIcon(new javax.swing.ImageIcon(getClass().getResource("/iconos/icons8-letras-24.png"))); // NOI18N
+        btnLetras.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnLetrasActionPerformed(evt);
+            }
+        });
         jPanel5.add(btnLetras, new org.netbeans.lib.awtextra.AbsoluteConstraints(320, 10, 50, -1));
 
         btnHerramientas.add(btnSubsionadorColores);
@@ -523,6 +528,12 @@ public class VentanaPrincipal extends javax.swing.JFrame {
         panelDeDibujo.setGrosor(sliderGrosor.getValue());
     }//GEN-LAST:event_sliderGrosorStateChanged
 
+    private void btnLetrasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLetrasActionPerformed
+        panelDeDibujo.setHerramienta("letras");
+        panelDeDibujo.setCursor(new java.awt.Cursor (java.awt.Cursor.TEXT_CURSOR));
+        panelDeDibujo.requestFocusInWindow();
+
+    }//GEN-LAST:event_btnLetrasActionPerformed
     private void btnDeshacerActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDeshacerActionPerformed
       panelDeDibujo.deshacer();
     }//GEN-LAST:event_btnDeshacerActionPerformed
