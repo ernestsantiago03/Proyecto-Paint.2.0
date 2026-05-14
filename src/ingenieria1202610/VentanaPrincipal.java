@@ -24,7 +24,7 @@ public class VentanaPrincipal extends javax.swing.JFrame {
 
     public VentanaPrincipal() {
         initComponents();
- 
+
         btnColorSegundoPlano.setBackground(Color.WHITE);
         btnColorPrimerPlano.setSelected(true);
         panelDeDibujo = new PanelDeDibujo();
@@ -37,7 +37,8 @@ public class VentanaPrincipal extends javax.swing.JFrame {
         btnCuadrado.addActionListener(e -> panelDeDibujo.setHerramienta("rectangulo"));
         btnBotePintura.addActionListener(e -> panelDeDibujo.setHerramienta("balde"));
         btnPincel.addActionListener(e -> panelDeDibujo.setHerramienta("pincel"));
-        
+        btnCirculo.addActionListener(e -> panelDeDibujo.setHerramienta("circulo"));
+        btnIndicacion.addActionListener(e -> panelDeDibujo.setHerramienta("flecha"));
     }
 
     /**
@@ -249,6 +250,11 @@ public class VentanaPrincipal extends javax.swing.JFrame {
 
         btnHerramientas.add(btnCirculo);
         btnCirculo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/iconos/icons8-circulo-30.png"))); // NOI18N
+        btnCirculo.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnCirculoActionPerformed(evt);
+            }
+        });
         jPanel5.add(btnCirculo, new org.netbeans.lib.awtextra.AbsoluteConstraints(540, 10, 40, 30));
 
         btnHerramientas.add(btnLuna);
@@ -278,6 +284,11 @@ public class VentanaPrincipal extends javax.swing.JFrame {
 
         btnHerramientas.add(btnIndicacion);
         btnIndicacion.setIcon(new javax.swing.ImageIcon(getClass().getResource("/iconos/icons8-derecha-30.png"))); // NOI18N
+        btnIndicacion.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnIndicacionActionPerformed(evt);
+            }
+        });
         jPanel5.add(btnIndicacion, new org.netbeans.lib.awtextra.AbsoluteConstraints(660, 10, 40, 30));
 
         btnHerramientas.add(btnCorazon);
@@ -482,7 +493,7 @@ public class VentanaPrincipal extends javax.swing.JFrame {
         if (color == null) {
             return;
         }
-        
+
         System.out.println(color);
         if (btnColorPrimerPlano.isSelected()) {
             btnColorPrimerPlano.setBackground(color);
@@ -497,23 +508,23 @@ public class VentanaPrincipal extends javax.swing.JFrame {
     }//GEN-LAST:event_btnPaletaDeColoresActionPerformed
 
     private void btnColorPrimerPlanoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnColorPrimerPlanoActionPerformed
-         Color colorTemp = btnColorPrimerPlano.getBackground();
-    btnColorPrimerPlano.setBackground(btnColorSegundoPlano.getBackground());
-    btnColorSegundoPlano.setBackground(colorTemp);
+        Color colorTemp = btnColorPrimerPlano.getBackground();
+        btnColorPrimerPlano.setBackground(btnColorSegundoPlano.getBackground());
+        btnColorSegundoPlano.setBackground(colorTemp);
 
-    panelDeDibujo.setColorDePrimerPlano(btnColorPrimerPlano.getBackground());
-    panelDeDibujo.setColorDeSegundoPlano(btnColorSegundoPlano.getBackground());
-    
+        panelDeDibujo.setColorDePrimerPlano(btnColorPrimerPlano.getBackground());
+        panelDeDibujo.setColorDeSegundoPlano(btnColorSegundoPlano.getBackground());
+
     }//GEN-LAST:event_btnColorPrimerPlanoActionPerformed
 
     private void btnColorSegundoPlanoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnColorSegundoPlanoActionPerformed
-       Color colorTemp = btnColorPrimerPlano.getBackground();
-    btnColorPrimerPlano.setBackground(btnColorSegundoPlano.getBackground());
-    btnColorSegundoPlano.setBackground(colorTemp);
+        Color colorTemp = btnColorPrimerPlano.getBackground();
+        btnColorPrimerPlano.setBackground(btnColorSegundoPlano.getBackground());
+        btnColorSegundoPlano.setBackground(colorTemp);
 
-    panelDeDibujo.setColorDePrimerPlano(btnColorPrimerPlano.getBackground());
-    panelDeDibujo.setColorDeSegundoPlano(btnColorSegundoPlano.getBackground());
-    
+        panelDeDibujo.setColorDePrimerPlano(btnColorPrimerPlano.getBackground());
+        panelDeDibujo.setColorDeSegundoPlano(btnColorSegundoPlano.getBackground());
+
     }//GEN-LAST:event_btnColorSegundoPlanoActionPerformed
 
     private void btnCuadradoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCuadradoActionPerformed
@@ -528,6 +539,13 @@ public class VentanaPrincipal extends javax.swing.JFrame {
         panelDeDibujo.setGrosor(sliderGrosor.getValue());
     }//GEN-LAST:event_sliderGrosorStateChanged
 
+    private void btnCirculoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCirculoActionPerformed
+        //btnCirculo.addActionListener(e -> panelDeDibujo.setHerramienta("circulo"));        // TODO add your handling code here:
+    }//GEN-LAST:event_btnCirculoActionPerformed
+
+    private void btnIndicacionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnIndicacionActionPerformed
+        //btnIndicacion.addActionListener(e -> panelDeDibujo.setHerramienta("flecha"));        // TODO add your handling code here:
+    }//GEN-LAST:event_btnIndicacionActionPerformed
     private void btnLetrasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLetrasActionPerformed
         panelDeDibujo.setHerramienta("letras");
         panelDeDibujo.setCursor(new java.awt.Cursor (java.awt.Cursor.TEXT_CURSOR));
