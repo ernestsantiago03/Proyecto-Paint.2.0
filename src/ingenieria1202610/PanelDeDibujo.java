@@ -37,6 +37,7 @@ public class PanelDeDibujo extends JPanel {
     private Color colorDeSegundoPlano = null;
     private String herramienta = "Ninguna";
     private int grosorActual = 3;
+    private figuras.Letras letrasActual;
 
     public PanelDeDibujo() {
         setBackground(Color.WHITE);
@@ -90,6 +91,13 @@ public class PanelDeDibujo extends JPanel {
                     default:
                         // ninguna herramienta activa
                         break;
+                        
+                    case "letras":
+                        figuraActual = new figuras.Letras(e.getPoint());
+                        figuraActual.setColorBorde(colorDePrimerPlano);
+                        figuras.add(figuraActual);
+                        requestFocusInWindow();
+    break;
                 }
                 repaint();
             }
@@ -104,6 +112,30 @@ public class PanelDeDibujo extends JPanel {
                 }
             }
         });
+        
+        addKeyListener(new java.awt.event.KeyAdapter() {
+
+    @Override
+    public void keyTyped(java.awt.event.KeyEvent e) {
+
+        if (figuraActual instanceof figuras.Letras) {
+
+            figuras.Letras letras = (figuras.Letras) figuraActual;
+
+            char c = e.getKeyChar();
+
+            if (c == '\b') {
+                letras.borrarUltima();
+            } else if (c != java.awt.event.KeyEvent.CHAR_UNDEFINED) {
+                letras.agregarLetra(c);
+            }
+
+            repaint();
+        }
+    }
+});
+
+setFocusable(true);
     }
 
     // métodos públicos para los botones
@@ -118,6 +150,18 @@ public class PanelDeDibujo extends JPanel {
     public void setHerramienta(String herramienta) {
         this.herramienta = herramienta;
     }
+    
+        // Metodo agregado por maria Muñoz para permitir la integracion de nuevas figuras
+    // desde la ventana principal sin romper el encapsulamiento del panel.
+    public void agregarFigura(Figura f) {   
+    figuras.add(f);
+    repaint();
+}
+
+    public String getHerramienta() {
+    return herramienta;
+}
+
 
     public void setGrosor(int grosor) {
         this.grosorActual = grosor;
