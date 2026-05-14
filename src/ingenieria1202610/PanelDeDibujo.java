@@ -26,7 +26,8 @@ import javax.swing.JPanel;
  * @author Osvaldo
  */
 public class PanelDeDibujo extends JPanel {
-private ArrayList<Figura> figurasRehacer = new ArrayList<>();
+
+    private ArrayList<Figura> figurasRehacer = new ArrayList<>();
     // lista de todas las figuras dibujadas
     private ArrayList<Figura> figuras = new ArrayList<>();
     // imagen en memoria donde se dibuja todo
@@ -84,9 +85,9 @@ private ArrayList<Figura> figurasRehacer = new ArrayList<>();
                             balde.rellenar();
                             // guardar el estado actual de la imagen en la lista
                             figuras.add(balde);
-                               figurasRehacer.clear();
+                            figurasRehacer.clear();
                         }
-                        break; 
+                        break;
                     case "pincel": // <-- NUEVO CASO
                         figuraActual = new figuras.Pincel();
                         figuraActual.setColorBorde(colorDePrimerPlano);
@@ -162,19 +163,22 @@ private ArrayList<Figura> figurasRehacer = new ArrayList<>();
         g2.dispose();
         g.drawImage(imagen, 0, 0, null);
     }
-    public void deshacer() {
-    if (!figuras.isEmpty()) {
-        Figura ultima = figuras.remove(figuras.size() - 1);
-        figurasRehacer.add(ultima);
-        repaint();
-    }
-}
 
-public void rehacer() {
-    if (!figurasRehacer.isEmpty()) {
-        Figura figura = figurasRehacer.remove(figurasRehacer.size() - 1);
-        figuras.add(figura);
-        repaint();
+    //Hector
+    public void deshacer() {
+        if (!figuras.isEmpty()) {
+            Figura ultima = figuras.remove(figuras.size() - 1);
+            figurasRehacer.add(ultima);
+            repaint();
+        }
     }
-}
+
+    //Hector
+    public void rehacer() {
+        if (!figurasRehacer.isEmpty()) {
+            Figura figura = figurasRehacer.remove(figurasRehacer.size() - 1);
+            figuras.add(figura);
+            repaint();
+        }
+    }
 }
