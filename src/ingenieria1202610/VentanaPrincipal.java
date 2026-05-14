@@ -20,6 +20,7 @@ public class VentanaPrincipal extends javax.swing.JFrame {
      * Creates new form VentanaPrincipal
      */
     private PanelDeDibujo panelDeDibujo;
+   
 
     public VentanaPrincipal() {
         initComponents();
@@ -158,10 +159,20 @@ public class VentanaPrincipal extends javax.swing.JFrame {
 
         btnHerramientas.add(btnDeshacer);
         btnDeshacer.setIcon(new javax.swing.ImageIcon(getClass().getResource("/iconos/icons8-deshacer-30.png"))); // NOI18N
+        btnDeshacer.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnDeshacerActionPerformed(evt);
+            }
+        });
         jPanel5.add(btnDeshacer, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 10, 50, 60));
 
         btnHerramientas.add(btnRehacer);
         btnRehacer.setIcon(new javax.swing.ImageIcon(getClass().getResource("/iconos/icons8-rehacer-30.png"))); // NOI18N
+        btnRehacer.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnRehacerActionPerformed(evt);
+            }
+        });
         jPanel5.add(btnRehacer, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 10, 50, 60));
 
         btnHerramientas.add(btnRotar);
@@ -196,6 +207,11 @@ public class VentanaPrincipal extends javax.swing.JFrame {
 
         btnHerramientas.add(btnLetras);
         btnLetras.setIcon(new javax.swing.ImageIcon(getClass().getResource("/iconos/icons8-letras-24.png"))); // NOI18N
+        btnLetras.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnLetrasActionPerformed(evt);
+            }
+        });
         jPanel5.add(btnLetras, new org.netbeans.lib.awtextra.AbsoluteConstraints(320, 10, 50, -1));
 
         btnHerramientas.add(btnSubsionadorColores);
@@ -530,6 +546,19 @@ public class VentanaPrincipal extends javax.swing.JFrame {
     private void btnIndicacionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnIndicacionActionPerformed
         //btnIndicacion.addActionListener(e -> panelDeDibujo.setHerramienta("flecha"));        // TODO add your handling code here:
     }//GEN-LAST:event_btnIndicacionActionPerformed
+    private void btnLetrasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLetrasActionPerformed
+        panelDeDibujo.setHerramienta("letras");
+        panelDeDibujo.setCursor(new java.awt.Cursor (java.awt.Cursor.TEXT_CURSOR));
+        panelDeDibujo.requestFocusInWindow();
+
+    }//GEN-LAST:event_btnLetrasActionPerformed
+    private void btnDeshacerActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDeshacerActionPerformed
+      panelDeDibujo.deshacer();
+    }//GEN-LAST:event_btnDeshacerActionPerformed
+
+    private void btnRehacerActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRehacerActionPerformed
+        panelDeDibujo.rehacer();
+    }//GEN-LAST:event_btnRehacerActionPerformed
 
     /**
      * @param args the command line arguments

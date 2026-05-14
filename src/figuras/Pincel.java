@@ -8,7 +8,7 @@ import java.awt.RenderingHints;
 import java.util.ArrayList;
 
 /**
- * Clase para la herramienta Pincel
+ * @author Diana
  */
 public class Pincel extends Figura {
 
