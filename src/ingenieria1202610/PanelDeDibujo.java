@@ -87,6 +87,19 @@ public class PanelDeDibujo extends JPanel {
                         figuraActual.setGrosor(grosorActual);
                         figuras.add(figuraActual);
                         break;
+                        
+                    case "circulo":
+                        figuraActual = new figuras.Circulo(e.getPoint());
+                        figuraActual.setColorBorde(colorDePrimerPlano);
+                        figuras.add(figuraActual);
+                        break;
+
+                    case "flecha":
+                        figuraActual = new figuras.Flecha(e.getPoint());
+                        figuraActual.setColorBorde(colorDePrimerPlano);
+                        figuras.add(figuraActual);
+                        break;
+                        
                     default:
                         // ninguna herramienta activa
                         break;
