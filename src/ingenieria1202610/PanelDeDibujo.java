@@ -26,7 +26,7 @@ import javax.swing.JPanel;
  * @author Osvaldo
  */
 public class PanelDeDibujo extends JPanel {
-
+private ArrayList<Figura> figurasRehacer = new ArrayList<>();
     // lista de todas las figuras dibujadas
     private ArrayList<Figura> figuras = new ArrayList<>();
     // imagen en memoria donde se dibuja todo
@@ -52,6 +52,7 @@ public class PanelDeDibujo extends JPanel {
                         figuraActual.setColorBorde(colorDePrimerPlano);
                         figuraActual.setGrosor(grosorActual);
                         figuras.add(figuraActual);
+                        figurasRehacer.clear();
                         break;
 
                     case "linea":
@@ -59,11 +60,13 @@ public class PanelDeDibujo extends JPanel {
                         figuraActual.setColorBorde(colorDePrimerPlano);
                         figuraActual.setGrosor(grosorActual);
                         figuras.add(figuraActual);
+                        figurasRehacer.clear();
                         break;
 
                     case "borrador":
                         figuraActual = new Borrador();
                         figuras.add(figuraActual);
+                        figurasRehacer.clear();
                         break;
 
                     case "rectangulo":
@@ -71,6 +74,7 @@ public class PanelDeDibujo extends JPanel {
                         figuraActual.setColorBorde(colorDePrimerPlano);
                         figuraActual.setColorRelleno(colorDeSegundoPlano);
                         figuras.add(figuraActual);
+                        figurasRehacer.clear();
                         break;
                     case "balde":
                         // verificar que la imagen ya existe
@@ -80,12 +84,15 @@ public class PanelDeDibujo extends JPanel {
                             balde.rellenar();
                             // guardar el estado actual de la imagen en la lista
                             figuras.add(balde);
+                               figurasRehacer.clear();
                         }
+                        break; 
                     case "pincel": // <-- NUEVO CASO
                         figuraActual = new figuras.Pincel();
                         figuraActual.setColorBorde(colorDePrimerPlano);
                         figuraActual.setGrosor(grosorActual);
                         figuras.add(figuraActual);
+                        figurasRehacer.clear();
                         break;
                     default:
                         // ninguna herramienta activa
@@ -155,4 +162,19 @@ public class PanelDeDibujo extends JPanel {
         g2.dispose();
         g.drawImage(imagen, 0, 0, null);
     }
+    public void deshacer() {
+    if (!figuras.isEmpty()) {
+        Figura ultima = figuras.remove(figuras.size() - 1);
+        figurasRehacer.add(ultima);
+        repaint();
+    }
+}
+
+public void rehacer() {
+    if (!figurasRehacer.isEmpty()) {
+        Figura figura = figurasRehacer.remove(figurasRehacer.size() - 1);
+        figuras.add(figura);
+        repaint();
+    }
+}
 }
