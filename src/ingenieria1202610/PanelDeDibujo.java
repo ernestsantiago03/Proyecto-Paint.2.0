@@ -89,7 +89,7 @@ public class PanelDeDibujo extends JPanel {
                             figurasRehacer.clear();
                         }
                         break;
-                        
+
                     case "pincel": // <-- NUEVO CASO
                         figuraActual = new figuras.Pincel();
                         figuraActual.setColorBorde(colorDePrimerPlano);
@@ -97,14 +97,24 @@ public class PanelDeDibujo extends JPanel {
                         figuras.add(figuraActual);
                         figurasRehacer.clear();
                         break;
-                        
+
                     case "letras":
                         figuraActual = new figuras.Letras(e.getPoint());
                         figuraActual.setColorBorde(colorDePrimerPlano);
                         figuras.add(figuraActual);
                         requestFocusInWindow();
                         break;
-                        
+                    case "circulo":
+                        figuraActual = new figuras.Circulo(e.getPoint());
+                        figuraActual.setColorBorde(colorDePrimerPlano);
+                        figuras.add(figuraActual);
+                        break;
+
+                    case "flecha":
+                        figuraActual = new figuras.Flecha(e.getPoint());
+                        figuraActual.setColorBorde(colorDePrimerPlano);
+                        figuras.add(figuraActual);
+                        break;
                     default:
                         // ninguna herramienta activa
                         break;
@@ -122,31 +132,31 @@ public class PanelDeDibujo extends JPanel {
                 }
             }
         });
-        
+
         addKeyListener(new java.awt.event.KeyAdapter() {
 
-    @Override
-    public void keyTyped(java.awt.event.KeyEvent e) {
+            @Override
+            public void keyTyped(java.awt.event.KeyEvent e) {
 
-        if (figuraActual instanceof figuras.Letras) {
+                if (figuraActual instanceof figuras.Letras) {
 
-            figuras.Letras letras = (figuras.Letras) figuraActual;
+                    figuras.Letras letras = (figuras.Letras) figuraActual;
 
-            char c = e.getKeyChar();
+                    char c = e.getKeyChar();
 
-            if (c == '\b') {
-                letras.borrarUltima();
-            } else if (c != java.awt.event.KeyEvent.CHAR_UNDEFINED) {
-                letras.agregarLetra(c);
+                    if (c == '\b') {
+                        letras.borrarUltima();
+                    } else if (c != java.awt.event.KeyEvent.CHAR_UNDEFINED) {
+                        letras.agregarLetra(c);
+                    }
+
+                    repaint();
+                }
             }
 
-            repaint();
-        }
-    }
-    
-});
+        });
 
-setFocusable(true);
+        setFocusable(true);
     }
 
     // métodos públicos para los botones
@@ -216,11 +226,11 @@ setFocusable(true);
             repaint();
         }
     }
-    
-            // Metodo agregado por maria Muñoz para permitir la integracion de nuevas figuras
+
+    // Metodo agregado por maria Muñoz para permitir la integracion de nuevas figuras
     // desde la ventana principal sin romper el encapsulamiento del panel.
-    public void agregarFigura(Figura f) {   
-    figuras.add(f);
-    repaint();
-}
+    public void agregarFigura(Figura f) {
+        figuras.add(f);
+        repaint();
+    }
 }
