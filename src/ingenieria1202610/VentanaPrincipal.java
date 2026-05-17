@@ -20,15 +20,15 @@ public class VentanaPrincipal extends javax.swing.JFrame {
 
 private PanelDeDibujo panelDeDibujo;
 
- public VentanaPrincipal() {
+public VentanaPrincipal() {
     initComponents();
 
     panelDeDibujo = new PanelDeDibujo();
     panelDeDibujo.setBackground(java.awt.Color.WHITE);
     panelDeDibujo.setOpaque(true);
-
+    
     getContentPane().add(panelDeDibujo, java.awt.BorderLayout.CENTER);
- }
+}
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -204,6 +204,11 @@ private PanelDeDibujo panelDeDibujo;
 
         btnHerramientas.add(btnCruz);
         btnCruz.setIcon(new javax.swing.ImageIcon(getClass().getResource("/iconos/icons8-hospital-30.png"))); // NOI18N
+        btnCruz.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnCruzActionPerformed(evt);
+            }
+        });
         jPanel5.add(btnCruz, new org.netbeans.lib.awtextra.AbsoluteConstraints(500, 10, 40, 30));
 
         btnHerramientas.add(btnTriangulo);
@@ -402,7 +407,7 @@ private PanelDeDibujo panelDeDibujo;
     }//GEN-LAST:event_btnSalirActionPerformed
 
     private void btnExagonoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnExagonoActionPerformed
-        // TODO add your handling code here:
+        panelDeDibujo.setHerramienta("HEXAGONO");
     }//GEN-LAST:event_btnExagonoActionPerformed
 
     private void btnLapizActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLapizActionPerformed
@@ -412,7 +417,10 @@ private PanelDeDibujo panelDeDibujo;
     private void btnLineaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLineaActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_btnLineaActionPerformed
-
+    
+    private void btnCruzActionPerformed(java.awt.event.ActionEvent evt) {
+    panelDeDibujo.setHerramienta("CRUZ");  
+}
     /**
      * @param args the command line arguments
      */
@@ -504,3 +512,4 @@ private PanelDeDibujo panelDeDibujo;
     private javax.swing.JMenu menuEdicion;
     // End of variables declaration//GEN-END:variables
 }
+
